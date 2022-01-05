@@ -1,21 +1,22 @@
-const DEFAULT_API_LOCALHOST = 'http://localhost:3000/api/v1'
+// const API_URL = 'http://localhost:3000/api/v1'
+const API_URL=process.env.REACT_APP_API_URL
+const VER = '/api/v1'
+export const loginURL = `${API_URL}${VER}/login`
+export const logged_inURL = `${API_URL}${VER}/logged_in`
+export const logoutURL = `${API_URL}${VER}/logout`
 
-export const loginURL = `${DEFAULT_API_LOCALHOST}/login`
-export const logged_inURL = `${DEFAULT_API_LOCALHOST}/logged_in`
-export const logoutURL = `${DEFAULT_API_LOCALHOST}/logout`
 
-
-export const root = `${DEFAULT_API_LOCALHOST}/`
-export const signupURL = `${DEFAULT_API_LOCALHOST}/signup`
+export const root = `${API_URL}${VER}/`
+export const signupURL = `${API_URL}${VER}/signup`
 // 編集へ
-export const userEditURL = (userId) => `${DEFAULT_API_LOCALHOST}/users/${userId}`
+export const userEditURL = (userId) => `${API_URL}${VER}/users/${userId}`
 // お気に入りへ//削除も一緒
-export const favoURL = (recipeId) => `${DEFAULT_API_LOCALHOST}/recipes/${recipeId}/favorites`
-export const getFavoURL = (userId) => `${DEFAULT_API_LOCALHOST}/users/${userId}`
-export const setFavoURL = (recipeId) => `${DEFAULT_API_LOCALHOST}/recipes/${recipeId}/setFavo`
+export const favoURL = (recipeId) => `${API_URL}${VER}/recipes/${recipeId}/favorites`
+export const getFavoURL = (userId) => `${API_URL}${VER}/users/${userId}`
+export const setFavoURL = (recipeId) => `${API_URL}${VER}/recipes/${recipeId}/setFavo`
 
 export const mypage = (userId) =>
-  `${DEFAULT_API_LOCALHOST}/${userId}`
-export const post = `${DEFAULT_API_LOCALHOST}/recipes`
-export const index = `${DEFAULT_API_LOCALHOST}/recipes`
-export const recipeEditURL = (recipeId) => `${DEFAULT_API_LOCALHOST}/recipes/${recipeId}`
+  `${API_URL}${VER}/${userId}`
+export const post = `${API_URL}${VER}/recipes`
+export const index = `${API_URL}${VER}/recipes`
+export const recipeEditURL = (recipeId) => `${API_URL}${VER}/recipes/${recipeId}`

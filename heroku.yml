@@ -7,6 +7,6 @@ build:
     web: Dockerfile
   config:
     WORKDIR: app
-    API_URL: "https://cooklog-api.herokuapp.com"
+    REACT_APP_API_URL: "https://cooklog-api.herokuapp.com"
 run:
   web: yarn run start
