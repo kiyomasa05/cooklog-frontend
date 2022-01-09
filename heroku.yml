@@ -2,11 +2,11 @@ setup:
   config:
     NODE_ENV: production
     NPM_CONFIG_PRODUCTION: false
-    REACT_APP_API_URL: "https://cooklog-api.herokuapp.com"
 build:
   docker:
     web: Dockerfile
   config:
     WORKDIR: app
+    REACT_APP_API_URL: "https://cooklog-api.herokuapp.com"
 run:
   web: yarn run start
