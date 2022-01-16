@@ -44,7 +44,7 @@ export const useSignup = () => {
       // 登録できなかった時のエラー
       else if (response.data.status === 500) {
         showMessage({ title: `${response.data.errors}`, status: "error" });
-        console.log(response.data);
+        console.log(response.data.errors);
       }
     }).catch((error) => {
       console.log(error)
