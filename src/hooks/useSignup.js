@@ -39,14 +39,16 @@ export const useSignup = () => {
         showMessage({ title: "新規登録しました", status: "success" });
         const user_id = response.data.user.id
         history.push(`/users/${user_id}`);
+        console.log(response.data);
       }
       // 登録できなかった時のエラー
       else if (response.data.status === 500) {
         showMessage({ title: `${response.data.errors}`, status: "error" });
+        console.log(response.data);
       }
     }).catch((error) => {
-      // console.log("registration error", error)
-      showMessage({ title: "登録できませんでした", status: "error" });
+      console.log(response.data)
+      showMessage({ title: "登録できませんでした,再度やり直してください", status: "error" });
       setLoading(false);
     })
   }, []);
