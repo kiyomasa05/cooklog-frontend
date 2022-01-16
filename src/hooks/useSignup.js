@@ -47,8 +47,8 @@ export const useSignup = () => {
         console.log(response.data);
       }
     }).catch((error) => {
-      console.log(response.data)
-      showMessage({ title: "登録できませんでした,再度やり直してください", status: "error" });
+      console.log(error)
+      showMessage({ title: "登録できませんでした,", status: "error" });
       setLoading(false);
     })
   }, []);
