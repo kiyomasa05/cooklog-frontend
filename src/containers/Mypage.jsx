@@ -86,7 +86,6 @@ export const Mypage = memo(() => {
           <Image
             borderRadius="full"
             boxSize="100px"
-            // src="https://source.unsplash.com/random"
             src={!loginUser.user.avatar_url ? "gibbresh.png" : loginUser.user.avatar_url}
             fallbackSrc="https://via.placeholder.com/250" border="2px" borderColor="gray.200"
           />

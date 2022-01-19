@@ -17,8 +17,8 @@ export const useAuthCheck = () => {
   //asyncもawaitもエラーは起きていない　けどコンパイルエラーは元のまま
   // const CheckAuth = useCallback( () => {
   //   axios
-  const CheckAuth = useCallback(async () => {
-    await axios
+  const CheckAuth = useCallback(() => {
+    axios
       .get(logged_inURL, { withCredentials: true })
       .then(response => {
         if (response.data.logged_in) {
@@ -33,6 +33,7 @@ export const useAuthCheck = () => {
         // うまくgetできなかった時のエラー
       }).catch((e) => {
         showMessage({ title: "認証が確認できません", status: "error" });
+        console.log(e)
       })
   }, [history, showMessage, setLoginUser]);
   return { CheckAuth };

@@ -12,7 +12,9 @@ export const Router = () => {
 
   return (
     <Switch>
+      {/* ログイン認証が使えるように */}
       <LoginUserProvider>
+        {/* 未ログインのルート */}
         <Route
           path="/"
           render={() => (
@@ -29,7 +31,7 @@ export const Router = () => {
             </Switch>
           )}
         />
-        {/* 次回/mypage/のルートを追記 */}
+        {/* マイページのルート */}
         <Route
           path="/users"
           render={({ match: { url } }) => (
