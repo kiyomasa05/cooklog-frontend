@@ -24,7 +24,7 @@ import { useAuthCheck } from "../hooks/useAuthCheck";
 
 import axios from "axios";
 import { useHistory } from "react-router-dom";
-
+import {post} from "../urls/post"
 import { useMessage } from "../hooks/useMessege";
 
 
@@ -60,7 +60,8 @@ export const Post = () => {
 
   const onSubmit =(event) => {
     setLoading(true)
-    axios.post("http://localhost:3000/api/v1/recipes",
+    axios.post(post,
+      // "http://localhost:3000/api/v1/recipes"
       {
         recipe: {
           user_id: loginUser.user.id,

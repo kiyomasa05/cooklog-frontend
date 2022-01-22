@@ -12,9 +12,8 @@ export const useAuthCheck = () => {
   const { setLoginUser } = useLoginUser();
   const history = useHistory();
   const { showMessage } = useMessage();
-  // console.log()
 
-  //asyncもawaitもエラーは起きていない　けどコンパイルエラーは元のまま
+  //asyncもawaitもエラーは起きていないけどコンパイルエラーは元のまま
   // const CheckAuth = useCallback( () => {
   //   axios
   const CheckAuth = useCallback(() => {
