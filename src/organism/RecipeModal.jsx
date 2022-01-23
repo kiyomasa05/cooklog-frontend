@@ -25,7 +25,7 @@ export const RecipeModal = memo((props) => {
   const history = useHistory();
   const { callFavorite, deleteFavorite, initialFavoState, favorite } = useFavo();
 
-  //モーダルレンダーと同時に実行,targetRecipeが変わるたびに実行
+  //モーダルクリック時にidがあれば、apiに初期状態を取得しにいく
   useEffect(() => {
     initialFavoState(recipes?.id)
   }, [recipes])

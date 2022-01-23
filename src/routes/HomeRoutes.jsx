@@ -36,5 +36,11 @@ export const HomeRoutes = [
     path: "/:id/edit",
     exact: false,
     children: <RecipeEdit />
-  }
+  },
+  // 出すと404ページが他のページと被ってしまう
+  // {
+  //   path: "/*",
+  //   exact: false,
+  //   children: <Page404 />
+  // }
 ];

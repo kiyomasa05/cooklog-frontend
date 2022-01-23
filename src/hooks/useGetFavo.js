@@ -20,6 +20,7 @@ export const useGetFavo = () => {
       .catch((e) => {
         showMessage({ title: "お気に入りレシピ取得に失敗しました", status: "error" });
         setLoading(false);
+        console.log(e)
       }).finally(() => {
         setLoading(false);
       });

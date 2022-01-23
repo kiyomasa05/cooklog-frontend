@@ -10,7 +10,6 @@ export const Home = () => {
     <Fragment>
       <Header />
       <Main />
-      <Footer />
     </Fragment>
   )
 }

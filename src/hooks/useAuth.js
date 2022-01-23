@@ -32,6 +32,7 @@ export const useAuth = () => {
         showMessage({ title: "ログインしました", status: "success" });
         const user_id = response.data.user.id
         history.push(`/users/${user_id}`);
+        console.log(response.data.user.id)
       }
       // 認証できなかった時のエラー
       else if (response.data.status === 401) {

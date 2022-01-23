@@ -16,16 +16,20 @@ export const useFavo = () => {
   const [favorite, setFavorite] = useState(false);
   
   const initialFavoState = useCallback((recipe_id) => {
-    axios
-      // .get(setFavoURL(`${recipe?.id}`),
-      .get(setFavoURL(recipe_id),
-        { withCredentials: true })
-      .then(response => {
-        setFavorite(response.data)//favoriteのtrueかfalseが入る
-      })
-      .catch((e) => {
-        // showMessage({ title: `${e.errors.fullmessage}`, status: "error" })
-      })
+    // recipeのidが取得できたら通信するように条件分岐
+    if (recipe_id !== undefined){
+      axios
+        // .get(setFavoURL(`${recipe?.id}`),
+        .get(setFavoURL(recipe_id),
+          { withCredentials: true })
+        .then(response => {
+          setFavorite(response.data)//favoriteのtrueかfalseが入る
+        })
+        .catch((e) => {
+          showMessage({ title: `${e}`, status: "error" });
+          console.log(e)
+        })
+    }
   }, [])
 
   const callFavorite = useCallback((recipe_id, loginUserId) => {

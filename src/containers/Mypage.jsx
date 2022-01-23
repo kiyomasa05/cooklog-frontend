@@ -3,7 +3,7 @@ import {
   Text, Wrap, Image, WrapItem, Spinner, Button, Center,
   Grid, GridItem, Tabs, TabList, TabPanels, Tab, TabPanel, useDisclosure, useColorModeValue
 } from "@chakra-ui/react"
-import { useHistory, useParams } from "react-router-dom";
+import { useHistory, useParams,useLocation} from "react-router-dom";
 
 //部品
 import { useLoginUser } from "../hooks/useLoginUser";
@@ -15,6 +15,7 @@ import { RecipeCard } from "../organism/RecipeCard";
 import { RecipeModal } from "../organism/RecipeModal";
 import { useSelectRecipe } from "../hooks/useSelectRecipe";
 import { useGetFavo } from '../hooks/useGetFavo';
+import { useFavo } from '../hooks/useFavo';
 
 export const Mypage = memo(() => {
   const { loginUser } = useLoginUser();
@@ -23,10 +24,10 @@ export const Mypage = memo(() => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { onSelectRecipe, selectedRecipe } = useSelectRecipe();
   const history = useHistory();
-  const { id } = useParams();
+  const {id}  = useParams();
 
   const { CheckAuth } = useAuthCheck();
-  
+
   useEffect(() => {
     CheckAuth();
   }, [])
@@ -37,6 +38,7 @@ export const Mypage = memo(() => {
 
   useEffect(() => {
     getFavoRecipe(id)
+    console.log(id)
   }, [])
 
   const onClickRecipe = useCallback((id) => {
@@ -58,7 +60,7 @@ export const Mypage = memo(() => {
     return recipe.user_id === loginUser.user.id
   });
   //お気に入りレシピが一つもない場合は、お気に入りしたレシピが表示されますと表示したい
-
+  const { initialFavoState} = useFavo();
   return (
     <>
       <Grid
@@ -140,6 +142,7 @@ export const Mypage = memo(() => {
           <TabPanel>
             {/* お気に入りレシピ */}
             <p>お気に入りしたレシピが表示されます</p>
+      <p>params: {id}</p>
             <Wrap>
               {
                 FavoRecipes.map((recipe) => (

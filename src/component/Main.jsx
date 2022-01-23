@@ -10,7 +10,7 @@ import { BaseBtn } from '../atom/btn/BaseBtn';
 
 const Wrapper = styled.div`
   width:100%;
-  height:97vh;
+  height:90%;
   background:rgb(200,140,100)  url(${MainImg});
   background-blend-mode: screen;
   background-size: cover;
