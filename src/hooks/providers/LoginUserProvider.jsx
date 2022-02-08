@@ -1,31 +1,22 @@
-import React, {
-  createContext,
-  useState
-} from "react";
+import React, { createContext, useState } from 'react';
 
-const initial_user =
-{
+const initial_user = {
   user: {
-    name: "notExist",
+    name: 'notExist',
     id: 1,
-    email: "sample@sample.com"
+    email: 'sample@sample.com',
   },
-  logged_in: false
-}
+  logged_in: false,
+};
 
 export const LoginUserContext = createContext({});
 
 // ログインユーザー情報を保持するcontext
-export const LoginUserProvider = (props) => {
+export function LoginUserProvider(props) {
   const { children } = props;
   const [loginUser, setLoginUser] = useState(initial_user);
 
-  return (
-    <LoginUserContext.Provider value={{ loginUser, setLoginUser }}>
-      {children}
-    </LoginUserContext.Provider>
-  );
-};
-//loginUserの値が変わった場合、loginUserを使用しているコンポーネントは全て再レンダリングされるので注意
-
-
+  // eslint-disable-next-line react/jsx-no-constructed-context-values
+  return <LoginUserContext.Provider value={{ loginUser, setLoginUser }}>{children}</LoginUserContext.Provider>;
+}
+// loginUserの値が変わった場合、loginUserを使用しているコンポーネントは全て再レンダリングされるので注意

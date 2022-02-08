@@ -1,18 +1,14 @@
 import React, { memo } from 'react';
 
-//部品
-import { Header } from '../organism/Header/Header'
-import { Container } from '../component/wrapper/Login_Wrapper'
+// 部品
+// import { Header } from '../organism/Header/Header';
+import Container from '../component/wrapper/Login_Wrapper';
 
+const Page404 = memo(() => (
+  <>
+    {/* <Header /> */}
+    <Container>404ページ</Container>
+  </>
+));
 
-
-export const Page404 = memo(() => {
-  return (
-    <>
-      <Header />
-      <Container>
-        404ページ
-      </Container>
-    </>
-  );
-});
+export default Page404;

@@ -1,28 +1,31 @@
-import { Mypage } from "../containers/Mypage"
-import { Page404 } from "../containers/404";
-import { UserEdit } from "../containers/UserEdit"
-import { Post } from "../containers/Post"
+import React from 'react';
+import { Mypage } from '../containers/Mypage';
+import Page404 from '../containers/404';
+import UserEdit from '../containers/UserEdit';
+import Post from '../containers/Post';
 
-export const MypageRoutes = [
+const MypageRoutes = [
   // users/
   {
-    path: "/:id",
+    path: '/:id',
     exact: true,
-    children: <Mypage />
+    children: <Mypage />,
   },
   {
-    path: "/:id/edit",
+    path: '/:id/edit',
     exact: false,
-    children: <UserEdit />
+    children: <UserEdit />,
   },
   {
-    path: "/:id/post",
+    path: '/:id/post',
     exact: false,
-    children: <Post />
+    children: <Post />,
   },
   {
-    path: "*",
+    path: '*',
     exact: false,
-    children: <Page404 />
+    children: <Page404 />,
   },
 ];
+
+export default MypageRoutes;

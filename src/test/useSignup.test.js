@@ -36,7 +36,7 @@
 //     }
 //   }
 // }
-  
+
 // const server = setupServer(
 //     rest.post("http://localhost:3000/api/v1/signup", (req, res, ctx) => {
 //         return res(
@@ -60,7 +60,7 @@
 // describe('Login', () => {
 //   it('Signinが成功時に画面にshowmessage（新規登録しました）が出るか', async () => {
 //     //一旦itの中に入れているが後で外だしするかも
-//     //hooksを呼ぶ　そこに定義したデータを引数として入れる
+//     //hooksを呼ぶそこに定義したデータを引数として入れる
 //     //引数を入れて関数を呼んだ瞬間axios通信してくれるのか？
 //     const { result } = renderHook(() => useSignup(Post_USER));
 //     //loadingがtrueになる
@@ -69,8 +69,9 @@
 //     await expect(result.current.loading).toBe(false);
 //     //showmessegeはいちいちhooksを呼ばなくても勝手に表示される？//renderだと違うページに表示されてしまうかもしれないから、render以外で確認できるのが良い
 //     //先にhistryのテストをするか？
-    
+
 //   })
+// eslint-disable-next-line jest/no-commented-out-tests
 //   it("submitを押した時に関数呼ばれるか,ページ遷移するか", async () => {
 //     //つまりまくったので、一旦ここは保留にし、別のエラーを直す
 //     const history = createMemoryHistory();
@@ -83,7 +84,7 @@
 //     const inputPassword_cofirmation = screen.getByPlaceholderText("password(確認用)");
 //     const inputName = screen.getByPlaceholderText("name");
 //     const inputEmail = screen.getByPlaceholderText("email");
-    
+
 //     act(() => {
 //       userEvent.type(inputName, "test");
 //       userEvent.type(inputEmail, "sample@sample.com");
@@ -122,7 +123,7 @@
 //   //     Promise.resolve({ data: { user } })
 //   //   );
 //     //
-    
+
 //     // expect(result.current.loading).toBeTruthy();
 //   // });
 //   // it("Should post data to api", () => {
@@ -143,5 +144,5 @@
 //     //レスポンスをshowmessageやsetLoginUserに格納するかのテスト
 //     // expect(result.current.loading).toBeTruthy();
 // //   });
-  
+
 // // })//describe

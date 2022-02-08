@@ -1,46 +1,49 @@
-import { Home } from "../containers/static_page"
-import { Login } from "../containers/Login"
-import { Signup } from "../containers/Signup"
-import { Index } from "../containers/Index"
-import { Search } from "../containers/Search"
-import { RecipeEdit } from "../containers/RecipeEdit"
-import { Page404 } from "../containers/404";
+import React from 'react';
+import Home from '../containers/static_page';
+import Login from '../containers/Login';
+import Signup from '../containers/Signup';
+import Index from '../containers/Index';
+import Search from '../containers/Search';
+import RecipeEdit from '../containers/RecipeEdit';
+// import { Page404 } from '../containers/404';
 
-export const HomeRoutes = [
+const HomeRoutes = [
   {
-    path: "/",
+    path: '/',
     exact: true,
-    children: <Home />
+    children: <Home />,
   },
   {
-    path: "/login",
+    path: '/login',
     exact: false,
-    children: <Login />
+    children: <Login />,
   },
   {
-    path: "/signup",
+    path: '/signup',
     exact: false,
-    children: <Signup />
+    children: <Signup />,
   },
   {
-    path: "/index",
+    path: '/index',
     exact: false,
-    children: <Index />
+    children: <Index />,
   },
   {
-    path: "/search",
+    path: '/search',
     exact: false,
-    children: <Search />
+    children: <Search />,
   },
   {
-    path: "/:id/edit",
+    path: '/:id/edit',
     exact: false,
-    children: <RecipeEdit />
+    children: <RecipeEdit />,
   },
   // 出すと404ページが他のページと被ってしまう
   // {
-  //   path: "/*",
+  //   path: '/*',
   //   exact: false,
   //   children: <Page404 />
   // }
 ];
+
+export default HomeRoutes;

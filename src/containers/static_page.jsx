@@ -1,16 +1,16 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 
-//component
-import { Header } from '../organism/Header/Header'
-import { Main } from '../component/Main'
-import { Footer } from '../component/Footer'
+// component
+// import { Header } from '../organism/Header/Header';
+import Main from '../component/Main';
 
-export const Home = () => {
+function Home() {
   return (
-    <Fragment>
-      <Header />
+    <>
+      {/* <Header /> */}
       <Main />
-    </Fragment>
-  )
+    </>
+  );
 }
 
+export default Home;

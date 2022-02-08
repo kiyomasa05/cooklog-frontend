@@ -1,16 +1,22 @@
-import { memo } from "react"
-import { Button } from "@chakra-ui/react"
+import React, { memo } from 'react';
+import { Button } from '@chakra-ui/react';
 
+const PrimaryBtn = memo((props) => {
+  const { children, isFullWidth = false, disabled = false, isLoading = false, onClick } = props;
 
-export const PrimaryBtn = memo((props) => {
-  const {
-    children,
-    isFullWidth = false,
-    disabled = false,
-    isLoading = false,
-    onClick
-  } = props;
   return (
-    <Button bg="green.300" color="white" _hover={{ opacity: 0.8 }}>{children}</Button>);
+    <Button
+      bg="green.300"
+      color="white"
+      isFullWidth={isFullWidth}
+      disabled={disabled || isLoading}
+      isLoading={isLoading}
+      _hover={{ opacity: 0.8 }}
+      onClick={onClick}
+    >
+      {children}
+    </Button>
+  );
 });
 
+export default PrimaryBtn;

@@ -1,24 +1,18 @@
+/* eslint-disable */
 import React, { useEffect, memo, useCallback, useState } from 'react';
-import {
-  useDisclosure,
-  Wrap,
-  WrapItem,
-  Center,
-  Heading,
-  Input
-} from "@chakra-ui/react";
+import { useDisclosure, Wrap, WrapItem, Center, Heading, Input } from '@chakra-ui/react';
 
-import NoImage from '../images/no-image.png'
+import NoImage from '../images/no-image.png';
 
-import { useGetRecipe } from '../hooks/useGetRecipe'
+import useGetRecipe from '../hooks/useGetRecipe';
 
-import { RecipeCard } from "../organism/RecipeCard";
-import { useAuthCheck } from "../hooks/useAuthCheck";
-import { RecipeModal } from "../organism/RecipeModal";
-import { useSelectRecipe } from "../hooks/useSelectRecipe";
-import { useLoginUser } from "../hooks/useLoginUser";
+import RecipeCard from '../organism/RecipeCard';
+import useAuthCheck from '../hooks/useAuthCheck';
+import RecipeModal from '../organism/RecipeModal';
+import useSelectRecipe from '../hooks/useSelectRecipe';
+import useLoginUser from '../hooks/useLoginUser';
 
-export const Search = memo(() => {
+const Search = memo(() => {
   const { getRecipe, recipes, loading } = useGetRecipe();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { onSelectRecipe, selectedRecipe } = useSelectRecipe();
@@ -27,22 +21,21 @@ export const Search = memo(() => {
   const { CheckAuth } = useAuthCheck();
 
   useEffect(() => {
-    CheckAuth()
-  }, [])
+    CheckAuth();
+  }, []);
 
-  useEffect(() => getRecipe(), {
-  }, [recipes])
+  useEffect(() => getRecipe(), {}, [recipes]);
 
-  const [keyword, setKeyword] = useState("");
+  const [keyword, setKeyword] = useState('');
   const [showLists, setShowLists] = useState(false);
   const [filteredRecipes, setFilteredRecipes] = useState(recipes);
 
   useEffect(() => {
-    if (keyword === "") {
+    if (keyword === '') {
       setFilteredRecipes(recipes);
       return;
     }
-    //入力されたkeywordの
+    // 入力されたkeywordの
     // trim = 文字列の両端の空白を削除
     // toLowerCase = 文字列を小文字に
     // match = 当てはまるか
@@ -53,32 +46,37 @@ export const Search = memo(() => {
       .toLowerCase()
       .match(/[^\s]+/g);
 
-    //入力されたキーワードが空白のみの場合
+    // 入力されたキーワードが空白のみの場合
     if (searchKeywords === null) {
       setFilteredRecipes(recipes);
       return;
     }
 
-    //検索窓に入力した文字列が入っているtitleのレシピを格納し、filterdrecipeにセットする
-    const Resultrecipes = recipes.filter(function (recipe, index) {
-      if ((recipe.title).indexOf(`${searchKeywords}`) >= 0) return true;
+    // 検索窓に入力した文字列が入っているtitleのレシピを格納し、filterdrecipeにセットする
+    const Resultrecipes = recipes.filter((recipe, index) => {
+      if (recipe.title.indexOf(`${searchKeywords}`) >= 0) return true;
     });
 
-    setFilteredRecipes(Resultrecipes.length ? Resultrecipes : ["No Item Found"]);
+    setFilteredRecipes(Resultrecipes.length ? Resultrecipes : ['No Item Found']);
   }, [keyword]);
 
-  const onClickRecipe = useCallback((id) => {
-    onSelectRecipe({ id, recipes, onOpen })
-  }, [recipes, onSelectRecipe, onOpen]);
+  const onClickRecipe = useCallback(
+    (id) => {
+      onSelectRecipe({ id, recipes, onOpen });
+    },
+    [recipes, onSelectRecipe, onOpen]
+  );
 
   return (
     <>
-      <Heading as="h2" size="lg" mt={24} textAlign={['center']}>レシピ検索（タイトル検索）</Heading>
+      <Heading as="h2" size="lg" mt={24} textAlign={['center']}>
+        レシピ検索（タイトル検索）
+      </Heading>
 
-      <Center m={"16"}>
+      <Center m="16">
         <Input
-          placeholder='検索'
-          size='lg'
+          placeholder="検索"
+          size="lg"
           onChange={(e) => setKeyword(e.target.value)}
           onClick={() => setShowLists(true)}
         />
@@ -101,9 +99,10 @@ export const Search = memo(() => {
               />
             </WrapItem>
           ))}
-        </Wrap>
-          <RecipeModal recipes={selectedRecipe} isOpen={isOpen} onClose={onClose} loginUser={loginUser}
-          />
+      </Wrap>
+      <RecipeModal recipes={selectedRecipe} isOpen={isOpen} onClose={onClose} loginUser={loginUser} />
     </>
   );
-})
+});
+
+export default Search;

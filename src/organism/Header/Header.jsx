@@ -1,16 +1,16 @@
-import {React,memo} from 'react';
+import { React, memo } from 'react';
 
-//component
-import { HeaderMenu } from './Header_Menu'
+// component
+import HeaderMenu from './Header_Menu';
 
-export const Header = memo((props) => {
+const Header = memo((props) => {
   const { children } = props;
   return (
     <>
       <HeaderMenu />
       {children}
     </>
-  )
+  );
 });
 
-
+export default Header;

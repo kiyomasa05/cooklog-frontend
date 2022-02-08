@@ -1,4 +1,4 @@
-import { memo } from "react";
+import React, { memo, Fragment } from 'react';
 import {
   Drawer,
   DrawerBody,
@@ -6,51 +6,76 @@ import {
   DrawerOverlay,
   DrawerContent,
   DrawerCloseButton,
-  Button
-} from "@chakra-ui/react"
+  Button,
+} from '@chakra-ui/react';
 
-import { useLoginUser } from '../hooks/useLoginUser'
-import { Fragment } from "react";
+import useLoginUser from '../hooks/useLoginUser';
 
-export const MenuDrawer = memo((props) => {
-  const { isOpen, onClose, btnRef,
-    onClickHome, onClickSignup, onClickLogin,
-    onClickIndex,onClickSearch, onClickLogout, onClickPost,onClickMypage } = props;
+const MenuDrawer = memo((props) => {
+  const {
+    isOpen,
+    onClose,
+    btnRef,
+    onClickHome,
+    onClickSignup,
+    onClickLogin,
+    onClickIndex,
+    onClickSearch,
+    onClickLogout,
+    onClickPost,
+    onClickMypage,
+  } = props;
   const { loginUser } = useLoginUser();
   return (
-    <Drawer
-      isOpen={isOpen}
-      placement="right"
-      onClose={onClose}
-      size="xs"
-      finalFocusRef={btnRef}
-    >
+    <Drawer isOpen={isOpen} placement="right" onClose={onClose} size="xs" finalFocusRef={btnRef}>
       <DrawerOverlay>
         <DrawerContent>
           <DrawerCloseButton onClick={onClose} />
           <DrawerHeader align="center">メニュー</DrawerHeader>
           <DrawerBody p={0} bg="grey.100">
-            {loginUser !== undefined ?
-              (
-                loginUser.logged_in ?
-                  <Fragment>
-                    <Button onClick={onClickHome} onClose={onClose} w="100%">ホーム</Button>
-                    <Button onClick={onClickMypage} onClose={onClose} w="100%">マイページ</Button>
-                    <Button onClick={onClickPost} onClose={onClose} w="100%">レシピ投稿</Button>
-                    <Button onClick={onClickIndex} onClose={onClose} w="100%">投稿一覧</Button>
-                    <Button onClick={onClickSearch} onClose={onClose} w="100%">レシピ検索</Button>
-                    <Button onClick={onClickLogout} onClose={onClose} w="100%">ログアウト</Button>
-                  </Fragment>
-                  :
-                  <Fragment>
-                    <Button onClick={onClickHome} onClose={onClose} w="100%">ホーム</Button>
-                    <Button onClick={onClickSignup} onClose={onClose} w="100%">新規登録</Button>
-                    <Button onClick={onClickLogin} onClose={onClose} w="100%">ログイン</Button>
-                  </Fragment>
-               ) : null}
+            {/* eslint-disable  */}
+            {loginUser !== undefined ? (
+              loginUser.logged_in ? (
+                <>
+                  <Button onClick={onClickHome} onClose={onClose} w="100%">
+                    ホーム
+                  </Button>
+                  <Button onClick={onClickMypage} onClose={onClose} w="100%">
+                    マイページ
+                  </Button>
+                  <Button onClick={onClickPost} onClose={onClose} w="100%">
+                    レシピ投稿
+                  </Button>
+                  <Button onClick={onClickIndex} onClose={onClose} w="100%">
+                    投稿一覧
+                  </Button>
+                  <Button onClick={onClickSearch} onClose={onClose} w="100%">
+                    レシピ検索
+                  </Button>
+                  <Button onClick={onClickLogout} onClose={onClose} w="100%">
+                    ログアウト
+                  </Button>
+                </>
+              ) : (
+                <>
+                  <Button onClick={onClickHome} onClose={onClose} w="100%">
+                    ホーム
+                  </Button>
+                  <Button onClick={onClickSignup} onClose={onClose} w="100%">
+                    新規登録
+                  </Button>
+                  <Button onClick={onClickLogin} onClose={onClose} w="100%">
+                    ログイン
+                  </Button>
+                </>
+              )
+            ) : null}
+            {/* eslint-enable */}
           </DrawerBody>
         </DrawerContent>
       </DrawerOverlay>
     </Drawer>
   );
 });
+
+export default MenuDrawer;

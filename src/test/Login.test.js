@@ -35,7 +35,7 @@
 //     // expect(screen.getByPlaceholderText("email")).toBeTruthy();
 //     // expect(screen.getByPlaceholderText("password")).toBeTruthy();
 //     // expect(screen.getByDisplayValue("ログイン")).toBeTruthy();
-    
+
 //   })
 // })
 // // describe("Input form onChange event", () => {

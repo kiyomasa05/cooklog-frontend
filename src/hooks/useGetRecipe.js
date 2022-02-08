@@ -1,28 +1,31 @@
-import { useCallback, useState } from "react";
-import axios from "axios";
+import { useCallback, useState } from 'react';
+import axios from 'axios';
 
-import { index } from '../urls/index'
-import { useMessage } from './useMessege'
+import { index } from '../urls/index';
+import useMessage from './useMessege';
 
-export const useGetRecipe = () => {
+const useGetRecipe = () => {
   const { showMessage } = useMessage();
   const [loading, setLoading] = useState(false);
   const [recipes, setRecipes] = useState([]);
 
-  const getRecipe = useCallback((data) => {
-    setLoading(true)
-    //ローディングアイコンをtrueに
+  const getRecipe = useCallback(() => {
+    setLoading(true);
+    // ローディングアイコンをtrueに
     axios
       .get(index)
-      .then(response => {
-        setRecipes(response.data)
+      .then((response) => {
+        setRecipes(response.data);
       })
       .catch(() => {
-        showMessage({ title: "レシピの取得に失敗しました", status: "error" })
+        showMessage({ title: 'レシピの取得に失敗しました', status: 'error' });
         setLoading(false);
-      }).finally(() => {
+      })
+      .finally(() => {
         setLoading(false);
       });
-  }, []);
+  }, [showMessage]);
   return { getRecipe, loading, recipes };
-}
+};
+
+export default useGetRecipe;

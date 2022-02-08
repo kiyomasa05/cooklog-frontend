@@ -1,6 +1,7 @@
 import { useContext } from 'react';
 
-import {LoginUserContext} from './providers/LoginUserProvider'
+import { LoginUserContext } from './providers/LoginUserProvider';
 
-export const useLoginUser = () =>
-  useContext(LoginUserContext);
+const useLoginUser = () => useContext(LoginUserContext);
+
+export default useLoginUser;

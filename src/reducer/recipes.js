@@ -7,8 +7,8 @@ export const initialState = {
 
 export const ActionTypes = {
   FETCHING: 'FETCHING',
-  FETCH_SUCCESS: 'FETCH_SUCCESS'
-}
+  FETCH_SUCCESS: 'FETCH_SUCCESS',
+};
 
 export const recipeReducer = (state, action) => {
   switch (action.type) {
@@ -26,4 +26,4 @@ export const recipeReducer = (state, action) => {
     default:
       throw new Error();
   }
-}
+};
