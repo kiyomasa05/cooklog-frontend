@@ -5,7 +5,7 @@ import userEvent from '@testing-library/user-event';
 // import { act } from 'react-dom/test-utils';
 import { rest } from 'msw';
 import { setupServer } from 'msw/node';
-import { Signup } from '../containers/Signup';
+import Signup from '../containers/Signup';
 
 // こっちはボタンを押してsignup関数hooksが起動するかまでのテストの役割
 // 実際にapiに通信するのは、hooksテストで役割を持つ

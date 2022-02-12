@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useForm } from 'react-hook-form';
+import useForm from 'react-hook-form';
 
 const Title = styled.h2`
   margin: 20px auto;

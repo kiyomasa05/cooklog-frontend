@@ -1,11 +1,12 @@
-import React, { memo, useCallback, Fragment } from 'react';
-import { Flex, Heading, Text, Box, Button, useDisclosure } from '@chakra-ui/react';
+import React, { memo, useCallback } from 'react';
+import { Flex, Heading, Text, Box, useDisclosure } from '@chakra-ui/react';
 import { useHistory } from 'react-router-dom';
 
 import MenuIconButton from '../../atom/btn/MenuIconButton';
 import MenuDrawer from '../../molcules/MenuDrawer';
 import useLoginUser from '../../hooks/useLoginUser';
 import useLogout from '../../hooks/useLogout';
+import HeaderMenuBtn from '../../atom/btn/HeaderMemuBtn';
 
 const HeaderMenu = memo(() => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -52,30 +53,30 @@ const HeaderMenu = memo(() => {
             {loginUser !== undefined ? (
               loginUser.logged_in ? (
                 <>
-                  <Button mr={4} onClick={onClickMypage}>
+                  <HeaderMenuBtn onClick={onClickMypage}>
                     マイページ
-                  </Button>
-                  <Button mr={4} onClick={onClickPost}>
+                  </HeaderMenuBtn>
+                  <HeaderMenuBtn onClick={onClickPost}>
                     レシピ投稿
-                  </Button>
-                  <Button mr={4} onClick={onClickIndex}>
+                  </HeaderMenuBtn>
+                  <HeaderMenuBtn onClick={onClickIndex}>
                     投稿一覧
-                  </Button>
-                  <Button mr={4} onClick={onClickSearch}>
+                  </HeaderMenuBtn>
+                  <HeaderMenuBtn onClick={onClickSearch}>
                     レシピ検索
-                  </Button>
-                  <Button mr={4} onClick={onClickLogout}>
+                  </HeaderMenuBtn>
+                  <HeaderMenuBtn onClick={onClickLogout}>
                     ログアウト
-                  </Button>
+                  </HeaderMenuBtn>
                 </>
               ) : (
                 <>
-                  <Button mr={4} onClick={onClickSignup}>
+                  <HeaderMenuBtn onClick={onClickSignup}>
                     新規登録
-                  </Button>
-                  <Button mr={4} onClick={onClickLogin}>
+                  </HeaderMenuBtn>
+                  <HeaderMenuBtn onClick={onClickLogin}>
                     ログイン
-                  </Button>
+                  </HeaderMenuBtn>
                 </>
               )
             ) : null}
