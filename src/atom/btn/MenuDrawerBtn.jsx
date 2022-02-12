@@ -2,7 +2,7 @@ import React, { memo } from 'react';
 import { Button } from '@chakra-ui/react';
 
 const MenuDrawerBtn = memo((props) => {
-  const { children } = props;
+  const { children, onClose, onClick } = props;
   return (
     <Button
       width="100%"
@@ -17,6 +17,8 @@ const MenuDrawerBtn = memo((props) => {
       borderBottomWidth="80%"
       colorScheme="whiteAlpha"
       borderRadius="none"
+      onClick={onClick}
+      onClose={onClose}
     >
       {children}
     </Button>

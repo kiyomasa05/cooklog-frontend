@@ -1,7 +1,7 @@
 import React from 'react';
 
 // component
-// import { Header } from '../organism/Header/Header';
+// import Header from '../organism/Header/Header';
 import Main from '../component/Main';
 
 function Home() {

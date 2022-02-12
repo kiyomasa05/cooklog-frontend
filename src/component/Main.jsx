@@ -66,8 +66,8 @@ const Main = memo(() => {
             <p>お気に入りのレシピを投稿しよう</p>
           </Inside>
           <Regist>
-            <RegistBtn onClick={onClickLogin}>新規登録</RegistBtn>
-            <RegistBtn onClick={onClickSignup}>ログイン</RegistBtn>
+            <RegistBtn onClick={onClickSignup}>新規登録</RegistBtn>
+            <RegistBtn onClick={onClickLogin}>ログイン</RegistBtn>
           </Regist>
         </Container>
       </Wrapper>
