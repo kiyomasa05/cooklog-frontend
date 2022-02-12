@@ -6,7 +6,8 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 
-import useSignup from '../hooks/useSignup';
+// hooks
+import useSignup from '../../hooks/useSignup';
 
 const schema = yup.object().shape({
   name: yup.string().max(50, '名前は50文字以内で入力して下さい').required('名前は必須です'),

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { memo, useState } from 'react';
 import {
   Flex,
   Box,
@@ -22,19 +22,22 @@ import {
   FormControl,
   FormLabel,
 } from '@chakra-ui/react';
-// import styled from 'styled-components';
-
-// import { useForm } from 'react-hook-form';
+import { useHistory, useLocation } from 'react-router-dom';
 import axios from 'axios';
-import { useHistory } from 'react-router-dom';
+
+// hooks
+// できればuseformでいきたい
+// import { useForm } from 'react-hook-form';
 // import { usePostRecipe } from '../hooks/usePostRecipe';
-import useLoginUser from '../hooks/useLoginUser';
+import useLoginUser from '../../hooks/useLoginUser';
 // import { useAuthCheck } from '../hooks/useAuthCheck';
+import useMessage from '../../hooks/useMessege';
 
-import { post } from '../urls/index';
-import useMessage from '../hooks/useMessege';
+// index
+import { recipeEditURL } from '../../urls/index';
 
-export default function Posts() {
+const RecipeEdit = memo(() => {
+  const { state } = useLocation();
   // const { postRecipe } = usePostRecipe();
   const { loginUser } = useLoginUser();
   const history = useHistory();
@@ -42,11 +45,14 @@ export default function Posts() {
   const [loading, setLoading] = useState(false);
 
   // api送信state
-  const [title, setTitle] = useState();
-  const [food, setFood] = useState();
-  const [process, setProcess] = useState();
-  const [time_required, setTimeRequired] = useState(0);
-  const [image, setImage] = useState({ data: '', name: '' });
+  const [title, setTitle] = useState(state.title);
+  const [food, setFood] = useState(state.food);
+  const [process, setProcess] = useState(state.process);
+  const [time_required, setTime_required] = useState(state.time_required);
+  // const [image, setImage] = useState({ data: "", name: "" })
+  const [image, setImage] = useState({ data: state.image_url, name: state.title });
+  // name
+  // 変えなかった場合、空文字になってしまう 一旦仮置き
 
   const handleImageSelect = (e) => {
     const reader = new FileReader();
@@ -65,10 +71,10 @@ export default function Posts() {
 
   const onSubmit = () => {
     setLoading(true);
+    // url送信先 patch recipeEditURL
     axios
-      .post(
-        post,
-        // "http://localhost:3000/api/v1/recipes",
+      .patch(
+        recipeEditURL(state.id),
         {
           recipe: {
             user_id: loginUser.user.id,
@@ -85,8 +91,8 @@ export default function Posts() {
         { withCredentials: true }
       )
       .then((response) => {
-        if (response.data.status === 'created') {
-          showMessage({ title: '投稿に成功しました', status: 'success' });
+        if (response.data.status === 'updated') {
+          showMessage({ title: '編集に成功しました', status: 'success' });
           setLoading(false);
           history.push('/index');
         } else if (response.data.status === 422) {
@@ -95,7 +101,7 @@ export default function Posts() {
         }
       })
       .catch(() => {
-        showMessage({ title: '投稿できませんでした', status: 'error' });
+        showMessage({ title: '編集できませんでした', status: 'error' });
         setLoading(false);
       })
       .finally(() => {
@@ -104,13 +110,13 @@ export default function Posts() {
   };
 
   // eslint-disable-next-line no-shadow
-  const handleChange = (time_required) => setTimeRequired(time_required);
+  const handleChange = (time_required) => setTime_required(time_required);
 
   return (
     <Flex mt="80px" alignItems="center" justifyContent="center">
       <Box bg="white" w={{ base: 'sm', md: '2xl' }} p={4} borderRadius="md" shadow="md">
         <Heading as="h1" size="lg" textAlign="center">
-          レシピ投稿
+          レシピ編集
         </Heading>
         <Divider my={4} />
         <FormControl>
@@ -175,15 +181,14 @@ export default function Posts() {
             所要時間
           </FormLabel>
           <Flex>
-            <NumberInput maxW="100px" mr="2rem" id="time_required" value={time_required} onChange={handleChange}>
+            <NumberInput maxW="100px" mr="2rem" id="time_required" value={time_required}>
               <NumberInputField />
               <NumberInputStepper>
                 <NumberIncrementStepper />
                 <NumberDecrementStepper />
               </NumberInputStepper>
             </NumberInput>
-            <Slider>
-              <SliderThumb flex="1" focusThumbOnChange={false} value={time_required} onChange={handleChange} />
+            <Slider flex="1" focusThumbOnChange={false} value={time_required} onChange={handleChange}>
               <SliderTrack>
                 <SliderFilledTrack />
               </SliderTrack>
@@ -201,4 +206,6 @@ export default function Posts() {
       </Box>
     </Flex>
   );
-}
+});
+
+export default RecipeEdit;

@@ -2,7 +2,7 @@ import React, { memo, useCallback } from 'react';
 import styled from 'styled-components';
 import { useHistory } from 'react-router-dom';
 
-import MainImg from '../images/TOP.jpg';
+import MainImg from '../../images/TOP.jpg';
 import BaseBtn from '../atom/btn/BaseBtn';
 
 const Wrapper = styled.div`
@@ -54,7 +54,7 @@ const RegistBtn = styled(BaseBtn)`
   }
 `;
 
-const Main = memo(() => {
+const Home = memo(() => {
   const history = useHistory();
   const onClickLogin = useCallback(() => history.push('/login'), [history]);
   const onClickSignup = useCallback(() => history.push('/signup'), [history]);
@@ -75,4 +75,4 @@ const Main = memo(() => {
   );
 });
 
-export default Main;
+export default Home;

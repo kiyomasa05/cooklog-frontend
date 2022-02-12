@@ -1,8 +1,8 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 
-import Header from '../organism/Header/Header';
-import Page404 from '../containers/404';
+import Header from '../component/organism/Header/Header';
+import Page404 from '../component/pages/404';
 import HomeRoutes from './HomeRoutes';
 import MypageRoutes from './MypageRoutes';
 import { LoginUserProvider } from '../hooks/providers/LoginUserProvider';

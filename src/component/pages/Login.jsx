@@ -4,10 +4,9 @@ import { Box, Divider, Flex, Heading, Input, Stack, Text } from '@chakra-ui/reac
 import styled from 'styled-components';
 
 import { useForm } from 'react-hook-form';
-import useAuth from '../hooks/useAuth';
+import useAuth from '../../hooks/useAuth';
 
 import PrimaryBtn from '../atom/btn/MenuIconButton';
-
 const SSubmit = styled.input`
   width: 100%;
   max-width: 100%;
@@ -71,7 +70,7 @@ const Login = memo(() => {
               </Text>
             )}
             <SSubmit type="submit" value="ログイン" />
-            <PrimaryBtn type="submit">ログイン</PrimaryBtn>
+            {/* <PrimaryBtn type="submit">ログイン</PrimaryBtn> */}
           </Stack>
         </form>
       </Box>

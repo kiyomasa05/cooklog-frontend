@@ -18,7 +18,7 @@ import moment from 'moment/moment';
 // import { useHistory } from 'react-router-dom';
 
 // import { useFavo } from '../hooks/useFavo';
-import NoImage from '../images/no-image.png';
+import NoImage from '../../images/no-image.png';
 import RecipeEditBtn from './EditBtn';
 import FavoBtn from './FavoBtn';
 

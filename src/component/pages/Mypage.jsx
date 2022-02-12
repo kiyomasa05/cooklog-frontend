@@ -18,17 +18,20 @@ import {
 } from '@chakra-ui/react';
 import { useHistory, useParams } from 'react-router-dom';
 
-// 部品
-import useLoginUser from '../hooks/useLoginUser';
-import useAuthCheck from '../hooks/useAuthCheck';
+// image
+import NoImage from '../../images/no-image.png';
 
-import useGetRecipe from '../hooks/useGetRecipe';
-import NoImage from '../images/no-image.png';
+// hooks
+import useLoginUser from '../../hooks/useLoginUser';
+import useAuthCheck from '../../hooks/useAuthCheck';
+import useGetRecipe from '../../hooks/useGetRecipe';
+import useSelectRecipe from '../../hooks/useSelectRecipe';
+import useGetFavo from '../../hooks/useGetFavo';
+import useFavo from '../../hooks/useFavo';
+
+//orgamisms
 import RecipeCard from '../organism/RecipeCard';
 import RecipeModal from '../organism/RecipeModal';
-import useSelectRecipe from '../hooks/useSelectRecipe';
-import useGetFavo from '../hooks/useGetFavo';
-import useFavo from '../hooks/useFavo';
 
 export const Mypage = memo(() => {
   const { loginUser } = useLoginUser();

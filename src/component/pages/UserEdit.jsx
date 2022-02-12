@@ -16,10 +16,10 @@ import {
 } from '@chakra-ui/react';
 import { useForm } from 'react-hook-form';
 
-import useUserEdit from '../hooks/useUserEdit';
-import useLoginUser from '../hooks/useLoginUser';
-import useAuthCheck from '../hooks/useAuthCheck';
-// 部品
+// hooks
+import useUserEdit from '../../hooks/useUserEdit';
+import useLoginUser from '../../hooks/useLoginUser';
+import useAuthCheck from '../../hooks/useAuthCheck';
 
 const UserEdit = memo(() => {
   const { userEdit, loading } = useUserEdit();

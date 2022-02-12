@@ -1,10 +1,10 @@
 import React from 'react';
-import Home from '../containers/static_page';
-import Login from '../containers/Login';
-import Signup from '../containers/Signup';
-import Index from '../containers/Index';
-import Search from '../containers/Search';
-import RecipeEdit from '../containers/RecipeEdit';
+import Home from '../component/pages/static_page';
+import Login from '../component/pages/Login';
+import Signup from '../component/pages/Signup';
+import Index from '../component/pages/Index';
+import Search from '../component/pages/Search';
+import RecipeEdit from '../component/pages/RecipeEdit';
 // import { Page404 } from '../containers/404';
 
 const HomeRoutes = [

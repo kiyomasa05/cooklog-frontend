@@ -1,8 +1,8 @@
 import React from 'react';
-import { Mypage } from '../containers/Mypage';
-import Page404 from '../containers/404';
-import UserEdit from '../containers/UserEdit';
-import Post from '../containers/Post';
+import { Mypage } from '../component/pages/Mypage';
+import Page404 from '../component/pages/404';
+import UserEdit from '../component/pages/UserEdit';
+import Post from '../component/pages/Post';
 
 const MypageRoutes = [
   // users/

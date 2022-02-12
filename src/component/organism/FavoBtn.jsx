@@ -3,7 +3,7 @@ import React, { memo, useEffect } from 'react';
 import { Button } from '@chakra-ui/react';
 import { StarIcon } from '@chakra-ui/icons';
 
-import useFavo from '../hooks/useFavo';
+import useFavo from '../../hooks/useFavo';
 
 // お気に入りのonoffのみ役割
 const FavoBtn = memo((props) => {

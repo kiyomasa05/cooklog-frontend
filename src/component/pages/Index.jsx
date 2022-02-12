@@ -3,14 +3,14 @@ import { useDisclosure, Wrap, WrapItem, Spinner, Center, Heading } from '@chakra
 
 // components
 // api
-import NoImage from '../images/no-image.png';
+import NoImage from '../../images/no-image.png';
 
-import useGetRecipe from '../hooks/useGetRecipe';
+import useGetRecipe from '../../hooks/useGetRecipe';
 import RecipeCard from '../organism/RecipeCard';
-import useAuthCheck from '../hooks/useAuthCheck';
+import useAuthCheck from '../../hooks/useAuthCheck';
 import RecipeModal from '../organism/RecipeModal';
-import useSelectRecipe from '../hooks/useSelectRecipe';
-import useLoginUser from '../hooks/useLoginUser';
+import useSelectRecipe from '../../hooks/useSelectRecipe';
+import useLoginUser from '../../hooks/useLoginUser';
 
 const Index = memo(() => {
   const { getRecipe, recipes, loading } = useGetRecipe();

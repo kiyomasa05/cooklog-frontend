@@ -2,15 +2,15 @@
 import React, { useEffect, memo, useCallback, useState } from 'react';
 import { useDisclosure, Wrap, WrapItem, Center, Heading, Input } from '@chakra-ui/react';
 
-import NoImage from '../images/no-image.png';
+import NoImage from '../../images/no-image.png';
 
-import useGetRecipe from '../hooks/useGetRecipe';
+import useGetRecipe from '../../hooks/useGetRecipe';
 
 import RecipeCard from '../organism/RecipeCard';
-import useAuthCheck from '../hooks/useAuthCheck';
+import useAuthCheck from '../../hooks/useAuthCheck';
 import RecipeModal from '../organism/RecipeModal';
-import useSelectRecipe from '../hooks/useSelectRecipe';
-import useLoginUser from '../hooks/useLoginUser';
+import useSelectRecipe from '../../hooks/useSelectRecipe';
+import useLoginUser from '../../hooks/useLoginUser';
 
 const Search = memo(() => {
   const { getRecipe, recipes, loading } = useGetRecipe();
