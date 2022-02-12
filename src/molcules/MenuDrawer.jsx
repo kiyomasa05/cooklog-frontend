@@ -1,13 +1,7 @@
-import React, { memo, Fragment } from 'react';
-import {
-  Drawer,
-  DrawerBody,
-  DrawerHeader,
-  DrawerOverlay,
-  DrawerContent,
-  DrawerCloseButton,
-  Button,
-} from '@chakra-ui/react';
+import React, { memo } from 'react';
+import { Drawer, DrawerBody, DrawerHeader, DrawerOverlay, DrawerContent, DrawerCloseButton } from '@chakra-ui/react';
+
+import MenuDrawerBtn from '../atom/btn/MenuDrawerBtn';
 
 import useLoginUser from '../hooks/useLoginUser';
 
@@ -37,36 +31,36 @@ const MenuDrawer = memo((props) => {
             {loginUser !== undefined ? (
               loginUser.logged_in ? (
                 <>
-                  <Button onClick={onClickHome} onClose={onClose} w="100%">
+                  <MenuDrawerBtn onClick={onClickHome} onClose={onClose} >
                     ホーム
-                  </Button>
-                  <Button onClick={onClickMypage} onClose={onClose} w="100%">
+                  </MenuDrawerBtn>
+                  <MenuDrawerBtn onClick={onClickMypage} onClose={onClose}>
                     マイページ
-                  </Button>
-                  <Button onClick={onClickPost} onClose={onClose} w="100%">
+                  </MenuDrawerBtn>
+                  <MenuDrawerBtn onClick={onClickPost} onClose={onClose}>
                     レシピ投稿
-                  </Button>
-                  <Button onClick={onClickIndex} onClose={onClose} w="100%">
+                  </MenuDrawerBtn>
+                  <MenuDrawerBtn onClick={onClickIndex} onClose={onClose}>
                     投稿一覧
-                  </Button>
-                  <Button onClick={onClickSearch} onClose={onClose} w="100%">
+                  </MenuDrawerBtn>
+                  <MenuDrawerBtn onClick={onClickSearch} onClose={onClose}>
                     レシピ検索
-                  </Button>
-                  <Button onClick={onClickLogout} onClose={onClose} w="100%">
+                  </MenuDrawerBtn>
+                  <MenuDrawerBtn onClick={onClickLogout} onClose={onClose}>
                     ログアウト
-                  </Button>
+                  </MenuDrawerBtn>
                 </>
               ) : (
                 <>
-                  <Button onClick={onClickHome} onClose={onClose} w="100%">
+                  <MenuDrawerBtn onClick={onClickHome} onClose={onClose} >
                     ホーム
-                  </Button>
-                  <Button onClick={onClickSignup} onClose={onClose} w="100%">
+                  </MenuDrawerBtn>
+                  <MenuDrawerBtn onClick={onClickSignup} onClose={onClose}>
                     新規登録
-                  </Button>
-                  <Button onClick={onClickLogin} onClose={onClose} w="100%">
+                  </MenuDrawerBtn>
+                  <MenuDrawerBtn onClick={onClickLogin} onClose={onClose}>
                     ログイン
-                  </Button>
+                  </MenuDrawerBtn>
                 </>
               )
             ) : null}
