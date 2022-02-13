@@ -2,7 +2,7 @@ import React, { memo } from 'react';
 import { Button } from '@chakra-ui/react';
 
 const PrimaryBtn = memo((props) => {
-  const { children, isFullWidth = false, disabled = false, isLoading = false, onClick } = props;
+  const { children, isFullWidth = false, disabled = false, isLoading, onClick } = props;
 
   return (
     <Button

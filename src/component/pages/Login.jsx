@@ -1,43 +1,39 @@
 /* eslint-disable */
 import React, { memo } from 'react';
-import { Box, Divider, Flex, Heading, Input, Stack, Text } from '@chakra-ui/react';
-import styled from 'styled-components';
-
+import { Box, Divider, Flex, Heading, Input, Stack, FormControl, Button } from '@chakra-ui/react';
 import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
+
+// hooks
 import useAuth from '../../hooks/useAuth';
 
-import PrimaryBtn from '../atom/btn/MenuIconButton';
-const SSubmit = styled.input`
-  width: 100%;
-  max-width: 100%;
-  font-size: 16px;
-  font-weight: bold;
-  border: none;
-  margin: 3rem 0;
-  padding: 0.5rem 1rem;
-  border-radius: 0.3rem;
-  background: #68d391;
-  color: #2d3748;
-  transition: 0.4s;
-  &:hover {
-    opacity: 0.8;
-    color: #fff;
-  }
-`;
+import ErrorMessage from '../atom/form/ErrorMessage';
+
+// login&signinリファクタリング対象
+const schema = yup.object().shape({
+  email: yup.string().email('正しいメールアドレスを入力してください').required('emailは必須です'),
+  password: yup
+    .string()
+    .min(4, 'passwordは4文字以上で入力して下さい')
+    .max(15, 'passwordは15文字以内で入力して下さい')
+    .required('パスワードは必須です'),
+});
 
 const Login = memo(() => {
   const { login } = useAuth();
   const {
     register,
     handleSubmit,
-    formState: { errors },
-  } = useForm();
+    formState: { errors, isSubmitting },
+  } = useForm({
+    resolver: yupResolver(schema),
+  });
 
   const onSubmit = (data) => {
     login(data);
   };
-  // eslint-disable-next-line
-  const Pattern = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
+
   return (
     <Flex alignItems="center" justifyContent="center" height="100vh">
       <Box bg="white" w="sm" p={4} borderRadius="md" shadow="md">
@@ -46,32 +42,17 @@ const Login = memo(() => {
         </Heading>
         <Divider my={4} />
         <form onSubmit={handleSubmit(onSubmit)}>
-          <Stack spacing={6} py={4} px={10}>
-            <Input type="text" placeholder="email" {...register('email', { required: true, pattern: Pattern })} />
-            {errors.email?.type === 'required' && (
-              <Text fontSize="md" color="red" m={0} p={0}>
-                emailは必須です
-              </Text>
-            )}
-            {errors.email?.type === 'pattern' && (
-              <Text fontSize="md" color="red" m={0} p={0}>
-                正しく入力して下さい
-              </Text>
-            )}
-            <Input type="password" placeholder="password" {...register('password', { required: true, minLength: 4 })} />
-            {errors.password?.type === 'required' && (
-              <Text fontSize="md" color="red" m={0} p={0}>
-                パスワードは必須です
-              </Text>
-            )}
-            {errors.password?.type === 'minLength' && (
-              <Text fontSize="md" color="red" m={0} p={0}>
-                パスワードは4文字以上です
-              </Text>
-            )}
-            <SSubmit type="submit" value="ログイン" />
-            {/* <PrimaryBtn type="submit">ログイン</PrimaryBtn> */}
-          </Stack>
+          <FormControl>
+            <Stack spacing={6} py={4} px={10}>
+              <Input type="text" placeholder="email" {...register('email')} />
+              <ErrorMessage>{errors.email?.message}</ErrorMessage>
+              <Input type="password" placeholder="password" {...register('password')} py={4} px={10}/>
+              <ErrorMessage>{errors.password?.message}</ErrorMessage>
+              <Button colorScheme="teal" type="submit" isLoading={isSubmitting}>
+                ログイン
+              </Button>
+            </Stack>
+          </FormControl>
         </form>
       </Box>
     </Flex>

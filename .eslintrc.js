@@ -36,5 +36,7 @@ module.exports = {
     properties: 'off', // プロパティをチェックしない
     'jsx-props-no-spreading': 'off',
     camelcase: 'off', // キャメルケースを見逃す
+    'react/jsx-props-no-spreading': 'off',
+    'react/react-in-jsx-scope': 'off',
   },
 };

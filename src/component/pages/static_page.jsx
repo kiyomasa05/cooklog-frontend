@@ -63,7 +63,7 @@ const Home = memo(() => {
       <Wrapper>
         <Container>
           <Inside>
-            <p>お気に入りのレシピを投稿しよう</p>
+            <h1>お気に入りのレシピを投稿しよう</h1>
           </Inside>
           <Regist>
             <RegistBtn onClick={onClickSignup}>新規登録</RegistBtn>
