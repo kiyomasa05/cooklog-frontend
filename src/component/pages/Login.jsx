@@ -7,7 +7,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import useAuth from '../../hooks/useAuth';
 
 import ErrorMessage from '../atom/form/ErrorMessage';
-import schema from '../../schema/schema';
+import SignupSchema from '../../schema/SignupSchema';
 
 const Login = memo(() => {
   const { login } = useAuth();
@@ -16,7 +16,7 @@ const Login = memo(() => {
     handleSubmit,
     formState: { errors, isSubmitting },
   } = useForm({
-    resolver: yupResolver(schema),
+    resolver: yupResolver(SignupSchema),
   });
 
   const onSubmit = (data) => {

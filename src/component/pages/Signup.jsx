@@ -7,7 +7,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import useSignup from '../../hooks/useSignup';
 
 import ErrorMessage from '../atom/form/ErrorMessage';
-import schema from '../../schema/schema';
+import SignupSchema from '../../schema/SignupSchema';
 
 const Signup = memo(() => {
   const { signup } = useSignup();
@@ -16,7 +16,7 @@ const Signup = memo(() => {
     handleSubmit,
     formState: { errors, isSubmitting },
   } = useForm({
-    resolver: yupResolver(schema),
+    resolver: yupResolver(SignupSchema),
   });
 
   const [avatar, setAvatar] = useState({ data: '', name: '' });
