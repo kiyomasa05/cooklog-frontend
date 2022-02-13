@@ -1,25 +1,13 @@
-// /* eslint-disable */
 import React, { memo, useState } from 'react';
 import { Box, Divider, Flex, Heading, Input, Stack, Image, FormControl, FormLabel, Button } from '@chakra-ui/react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import * as yup from 'yup';
 
 // hooks
 import useSignup from '../../hooks/useSignup';
 
 import ErrorMessage from '../atom/form/ErrorMessage';
-
-const schema = yup.object().shape({
-  name: yup.string().max(50, '名前は50文字以内で入力して下さい').required('名前は必須です'),
-  email: yup.string().email('正しいメールアドレスを入力してください').required('emailは必須です'),
-  password: yup
-    .string()
-    .min(4, 'passwordは4文字以上で入力して下さい')
-    .max(15, 'passwordは15文字以内で入力して下さい')
-    .required('パスワードは必須です'),
-  password_confirmation: yup.string().oneOf([yup.ref('password'), null], '再入力passwordが一致しません'),
-});
+import schema from '../../schema/schema';
 
 const Signup = memo(() => {
   const { signup } = useSignup();

@@ -1,24 +1,13 @@
-/* eslint-disable */
 import React, { memo } from 'react';
 import { Box, Divider, Flex, Heading, Input, Stack, FormControl, Button } from '@chakra-ui/react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import * as yup from 'yup';
 
 // hooks
 import useAuth from '../../hooks/useAuth';
 
 import ErrorMessage from '../atom/form/ErrorMessage';
-
-// login&signinリファクタリング対象
-const schema = yup.object().shape({
-  email: yup.string().email('正しいメールアドレスを入力してください').required('emailは必須です'),
-  password: yup
-    .string()
-    .min(4, 'passwordは4文字以上で入力して下さい')
-    .max(15, 'passwordは15文字以内で入力して下さい')
-    .required('パスワードは必須です'),
-});
+import schema from '../../schema/schema';
 
 const Login = memo(() => {
   const { login } = useAuth();
@@ -46,7 +35,7 @@ const Login = memo(() => {
             <Stack spacing={6} py={4} px={10}>
               <Input type="text" placeholder="email" {...register('email')} />
               <ErrorMessage>{errors.email?.message}</ErrorMessage>
-              <Input type="password" placeholder="password" {...register('password')} py={4} px={10}/>
+              <Input type="password" placeholder="password" {...register('password')} />
               <ErrorMessage>{errors.password?.message}</ErrorMessage>
               <Button colorScheme="teal" type="submit" isLoading={isSubmitting}>
                 ログイン
