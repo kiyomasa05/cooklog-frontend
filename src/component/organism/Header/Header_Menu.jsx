@@ -26,7 +26,6 @@ const HeaderMenu = memo(() => {
   const onClickPost = () => history.push(`/users/${userId}/post`);
   const onClickMypage = () => history.push(`/users/${userId}`);
   const onClickLogout = () => logout();
-
   return (
     <>
       <Flex

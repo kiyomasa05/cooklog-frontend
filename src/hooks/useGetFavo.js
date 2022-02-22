@@ -17,10 +17,9 @@ const useGetFavo = () => {
         .then((response) => {
           setFavoRecipes(response.data);
         })
-        .catch((e) => {
+        .catch(() => {
           showMessage({ title: 'お気に入りレシピ取得に失敗しました', status: 'error' });
           setLoading(false);
-          console.log(e);
         })
         .finally(() => {
           setLoading(false);

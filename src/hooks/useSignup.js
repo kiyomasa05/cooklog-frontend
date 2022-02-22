@@ -41,17 +41,14 @@ function useSignup() {
           showMessage({ title: '新規登録しました', status: 'success' });
           const user_id = response.data.user.id;
           history.push(`/users/${user_id}`);
-          console.log(response.data);
         }
 
         // 登録できなかった時のエラー
         else if (response.data.status === 500) {
           showMessage({ title: `${response.data.errors}`, status: 'error' });
-          console.log(response.data.errors);
         }
       })
-      .catch((error) => {
-        console.log(error);
+      .catch(() => {
         showMessage({ title: '登録できませんでした,', status: 'error' });
         setLoading(false);
       });

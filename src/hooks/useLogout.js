@@ -17,7 +17,14 @@ const useLogout = () => {
     axios
       .delete(logoutURL, { withCredentials: true })
       .then(() => {
-        setLoginUser({ logged_in: false });
+        setLoginUser({
+          user: {
+            name: 'notExist',
+            id: 1,
+            email: 'sample@sample.com',
+          },
+          logged_in: false,
+        });
         showMessage({ title: 'ログアウトしました', status: 'success' });
         history.push('/login');
       })

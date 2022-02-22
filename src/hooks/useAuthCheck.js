@@ -31,9 +31,8 @@ const useAuthCheck = () => {
         }
         // うまくgetできなかった時のエラー
       })
-      .catch((e) => {
+      .catch(() => {
         showMessage({ title: '認証が確認できません', status: 'error' });
-        console.log(e);
       });
   }, [history, showMessage, setLoginUser]);
   return { CheckAuth };
