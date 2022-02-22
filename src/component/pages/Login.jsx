@@ -17,11 +17,11 @@ const LoginSchema = yup.object().shape({
     .required('パスワードは必須です'),
 });
 const Login = memo(() => {
-  const { login } = useAuth();
+  const { login, loading } = useAuth();
   const {
     register,
     handleSubmit,
-    formState: { errors, isSubmitting },
+    formState: { errors },
   } = useForm({
     resolver: yupResolver(LoginSchema),
   });
@@ -52,7 +52,7 @@ const Login = memo(() => {
                 {...register('password')}
               />
               <ErrorMessage>{errors.password?.message}</ErrorMessage>
-              <Button colorScheme="teal" type="submit" isLoading={isSubmitting}>
+              <Button colorScheme="teal" type="submit" isLoading={loading}>
                 ログイン
               </Button>
             </Stack>

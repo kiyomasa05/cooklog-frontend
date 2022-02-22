@@ -10,11 +10,11 @@ import ErrorMessage from '../atom/form/ErrorMessage';
 import SignupSchema from '../../schema/SignupSchema';
 
 const Signup = memo(() => {
-  const { signup } = useSignup();
+  const { signup, loading } = useSignup();
   const {
     register,
     handleSubmit,
-    formState: { errors, isSubmitting },
+    formState: { errors },
   } = useForm({
     resolver: yupResolver(SignupSchema),
   });
@@ -80,7 +80,7 @@ const Signup = memo(() => {
                   onChange={handleImageSelect}
                 />
               </Stack>
-              <Button colorScheme="teal" type="submit" isLoading={isSubmitting}>
+              <Button colorScheme="teal" type="submit" isLoading={loading}>
                 新規登録
               </Button>
             </Stack>
