@@ -27,7 +27,6 @@ import useAuthCheck from '../../hooks/useAuthCheck';
 import useGetRecipe from '../../hooks/useGetRecipe';
 import useSelectRecipe from '../../hooks/useSelectRecipe';
 import useGetFavo from '../../hooks/useGetFavo';
-import useFavo from '../../hooks/useFavo';
 
 //orgamisms
 import RecipeCard from '../organism/RecipeCard';
@@ -46,7 +45,7 @@ export const Mypage = memo(() => {
 
   useEffect(() => {
     CheckAuth();
-  }, []);
+  },[]);
 
   useEffect(() => {
     getRecipe();
@@ -73,15 +72,12 @@ export const Mypage = memo(() => {
 
   const MyRecipes = recipes.filter((recipe) => recipe.user_id === loginUser.user.id);
   // お気に入りレシピが一つもない場合は、お気に入りしたレシピが表示されますと表示したい
-  const { initialFavoState } = useFavo();
   return (
     <>
       <Grid h="200px" templateRows="repeat(6)" templateColumns="repeat(5)" gap={1} mx="auto" mt={78}>
         <GridItem rowSpan={1} colSpan={6} ml={2} pb="-2" fontSize="lg">
-          {loginUser.logged_in ? (
+          {loginUser && (
             `${loginUser.user.name}   さん`
-          ) : (
-            <Spinner thickness="6px" speed="0.65s" emptyColor="gray.200" color="blue.500" size="md" mt="90px" />
           )}
         </GridItem>
         <GridItem rowSpan={3} colSpan={2} mx="auto" display="flex" justifyContent="center" alignItems="center">
@@ -142,11 +138,7 @@ export const Mypage = memo(() => {
           </TabPanel>
           <TabPanel>
             {/* お気に入りレシピ */}
-            <p>お気に入りしたレシピが表示されます</p>
-            <p>
-              params:
-              {id}
-            </p>
+            {FavoRecipes || <p>お気に入りしたレシピが表示されます</p>}
             <Wrap>
               {FavoRecipes.map((recipe) => (
                 <WrapItem key={recipe.id} overflow="hidden" m={0}>

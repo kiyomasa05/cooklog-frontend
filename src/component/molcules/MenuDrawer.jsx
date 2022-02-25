@@ -28,29 +28,29 @@ const MenuDrawer = memo((props) => {
           <DrawerHeader align="center">メニュー</DrawerHeader>
           <DrawerBody p={0} bg="grey.100">
             {/* eslint-disable  */}
-            {loginUser !== undefined ? (
-              loginUser.logged_in ? (
-                <>
-                  <MenuDrawerBtn onClick={onClickHome} onClose={onClose} >
-                    ホーム
-                  </MenuDrawerBtn>
-                  <MenuDrawerBtn onClick={onClickMypage} onClose={onClose}>
-                    マイページ
-                  </MenuDrawerBtn>
-                  <MenuDrawerBtn onClick={onClickPost} onClose={onClose}>
-                    レシピ投稿
-                  </MenuDrawerBtn>
-                  <MenuDrawerBtn onClick={onClickIndex} onClose={onClose}>
-                    投稿一覧
-                  </MenuDrawerBtn>
-                  <MenuDrawerBtn onClick={onClickSearch} onClose={onClose}>
-                    レシピ検索
-                  </MenuDrawerBtn>
-                  <MenuDrawerBtn onClick={onClickLogout} onClose={onClose}>
-                    ログアウト
-                  </MenuDrawerBtn>
-                </>
-              ) : (
+            {loginUser && (
+              <>
+                <MenuDrawerBtn onClick={onClickHome} onClose={onClose} >
+                  ホーム
+                </MenuDrawerBtn>
+                <MenuDrawerBtn onClick={onClickMypage} onClose={onClose}>
+                  マイページ
+                </MenuDrawerBtn>
+                <MenuDrawerBtn onClick={onClickPost} onClose={onClose}>
+                  レシピ投稿
+                </MenuDrawerBtn>
+                <MenuDrawerBtn onClick={onClickIndex} onClose={onClose}>
+                  投稿一覧
+                </MenuDrawerBtn>
+                <MenuDrawerBtn onClick={onClickSearch} onClose={onClose}>
+                  レシピ検索
+                </MenuDrawerBtn>
+                <MenuDrawerBtn onClick={onClickLogout} onClose={onClose}>
+                  ログアウト
+                </MenuDrawerBtn>
+              </>
+            )}
+            {loginUser || (
                 <>
                   <MenuDrawerBtn onClick={onClickHome} onClose={onClose} >
                     ホーム
@@ -62,8 +62,7 @@ const MenuDrawer = memo((props) => {
                     ログイン
                   </MenuDrawerBtn>
                 </>
-              )
-            ) : null}
+              )}
             {/* eslint-enable */}
           </DrawerBody>
         </DrawerContent>

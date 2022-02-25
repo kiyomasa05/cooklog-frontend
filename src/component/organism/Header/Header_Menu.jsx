@@ -15,9 +15,7 @@ const HeaderMenu = memo(() => {
   const { logout } = useLogout();
   const { loginUser } = useLoginUser();
 
-  // const userId=loginUser.user.id
-  const userId = loginUser ? loginUser.user.id : 1;
-  // テストエラー中 loginUserのuserが見つからない
+  const userId = loginUser ? loginUser.user.id : null;
   const onClickHome = useCallback(() => history.push('/'), [history]);
   const onClickLogin = useCallback(() => history.push('/login'), [history]);
   const onClickSignup = useCallback(() => history.push('/signup'), [history]);
@@ -49,8 +47,17 @@ const HeaderMenu = memo(() => {
         <Flex align="center" fontSize="md" flexGrow={2} display={{ base: 'none', md: 'flex' }}>
           <Box pr={4}>
             {/* eslint-disable  */}
-            {loginUser !== undefined ? (
-              loginUser.logged_in ? (
+            {loginUser || (
+              <>
+                <HeaderMenuBtn onClick={onClickSignup}>
+                  新規登録
+                </HeaderMenuBtn>
+                <HeaderMenuBtn onClick={onClickLogin}>
+                  ログイン
+                </HeaderMenuBtn>
+              </>
+            )}
+            {loginUser && (
                 <>
                   <HeaderMenuBtn onClick={onClickMypage}>
                     マイページ
@@ -67,18 +74,8 @@ const HeaderMenu = memo(() => {
                   <HeaderMenuBtn onClick={onClickLogout}>
                     ログアウト
                   </HeaderMenuBtn>
-                </>
-              ) : (
-                <>
-                  <HeaderMenuBtn onClick={onClickSignup}>
-                    新規登録
-                  </HeaderMenuBtn>
-                  <HeaderMenuBtn onClick={onClickLogin}>
-                    ログイン
-                  </HeaderMenuBtn>
-                </>
-              )
-            ) : null}
+              </>
+            )}
             {/* eslint-enable */}
           </Box>
         </Flex>

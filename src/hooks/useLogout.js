@@ -5,6 +5,7 @@ import { useHistory } from 'react-router-dom';
 
 import useMessage from './useMessege';
 import useLoginUser from './useLoginUser';
+import useLoginCheck from './useLoginCheck';
 
 import { logoutURL } from '../urls/index';
 
@@ -12,19 +13,14 @@ const useLogout = () => {
   const history = useHistory();
   const { showMessage } = useMessage();
   const { setLoginUser } = useLoginUser();
+  const { setLoginState } = useLoginCheck();
 
   const logout = useCallback(() => {
     axios
       .delete(logoutURL, { withCredentials: true })
       .then(() => {
-        setLoginUser({
-          user: {
-            name: 'notExist',
-            id: 1,
-            email: 'sample@sample.com',
-          },
-          logged_in: false,
-        });
+        setLoginUser(null);
+        setLoginState(false);
         showMessage({ title: 'ログアウトしました', status: 'success' });
         history.push('/login');
       })
