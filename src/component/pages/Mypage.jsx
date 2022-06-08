@@ -4,7 +4,6 @@ import {
   Wrap,
   Image,
   WrapItem,
-  Spinner,
   Button,
   Grid,
   GridItem,
@@ -43,19 +42,23 @@ export const Mypage = memo(() => {
 
   const { CheckAuth } = useAuthCheck();
 
+  // リロード時にログイン状態が消えないように認証する
+  // セッションに情報がはいらず、うまくいかない。
   useEffect(() => {
     CheckAuth();
   },[]);
 
+  // 初回のレンダー時にすべてのレシピを取得する
   useEffect(() => {
     getRecipe();
   }, []);
 
+  // 初回のレンダー時にUserのお気に入りレシピを取得する
   useEffect(() => {
     getFavoRecipe(id);
-    console.log(id);
   }, []);
 
+  // クリック時にモーダルを開く
   const onClickRecipe = useCallback(
     (id) => {
       onSelectRecipe({ id, recipes, onOpen });
@@ -63,6 +66,7 @@ export const Mypage = memo(() => {
     [recipes, onSelectRecipe, onOpen]
   );
 
+  // プロフィール編集の関数
   const onClickProfileEdit = useCallback(() => history.push(`/users/${id}/edit`), [history]);
 
   // タブ背景色の定義
@@ -70,10 +74,11 @@ export const Mypage = memo(() => {
   const [tabIndex, setTabIndex] = useState(0);
   const bg = colors[tabIndex];
 
+  // すべてのレシピから自分のidと一致するレシピのみにソートする
   const MyRecipes = recipes.filter((recipe) => recipe.user_id === loginUser.user.id);
-  // お気に入りレシピが一つもない場合は、お気に入りしたレシピが表示されますと表示したい
   return (
     <>
+      {/* 上部のプロフィール部分 */}
       <Grid h="200px" templateRows="repeat(6)" templateColumns="repeat(5)" gap={1} mx="auto" mt={78}>
         <GridItem rowSpan={1} colSpan={6} ml={2} pb="-2" fontSize="lg">
           {loginUser && (
@@ -108,7 +113,7 @@ export const Mypage = memo(() => {
           </Button>
         </GridItem>
       </Grid>
-
+      {/* レシピ表示部 */}
       <Tabs isFitted variant="enclosed" onChange={(index) => setTabIndex(index)} bg={bg}>
         <TabList mb="1em">
           <Tab>投稿レシピ</Tab>
@@ -118,6 +123,7 @@ export const Mypage = memo(() => {
           {/* 投稿レシピ */}
           <TabPanel>
             <Wrap>
+              {/* 繰り返し処理  loginUserは使ってなさそうなので、削除*/}
               {MyRecipes.map((recipe) => (
                 <WrapItem key={recipe.id} overflow="hidden" m={0}>
                   <RecipeCard
@@ -128,13 +134,14 @@ export const Mypage = memo(() => {
                     food={recipe.food}
                     created_at={recipe.created_at}
                     process={recipe.process}
-                    loginUser={loginUser}
+                    // loginUser={loginUser}
                     onClick={onClickRecipe}
                   />
                 </WrapItem>
               ))}
             </Wrap>
-            <RecipeModal recipes={selectedRecipe} isOpen={isOpen} onClose={onClose} loginUser={loginUser} />
+            {/* propsでloginUser使ってなさそうなので、削除 */}
+            <RecipeModal recipes={selectedRecipe} isOpen={isOpen} onClose={onClose} />
           </TabPanel>
           <TabPanel>
             {/* お気に入りレシピ */}
@@ -155,8 +162,9 @@ export const Mypage = memo(() => {
                 </WrapItem>
               ))}
             </Wrap>
+            {/* propsでLoginUserを使ってなさそうなので削除 */}
             {selectedRecipe && (
-              <RecipeModal recipes={selectedRecipe} isOpen={isOpen} onClose={onClose} loginUser={loginUser} />
+              <RecipeModal recipes={selectedRecipe} isOpen={isOpen} onClose={onClose} />
             )}
           </TabPanel>
         </TabPanels>

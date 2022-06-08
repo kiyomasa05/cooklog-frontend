@@ -1,9 +1,10 @@
 import React, { memo } from 'react';
 import { Drawer, DrawerBody, DrawerHeader, DrawerOverlay, DrawerContent, DrawerCloseButton } from '@chakra-ui/react';
-
+// atom
 import MenuDrawerBtn from '../atom/btn/MenuDrawerBtn';
-
-import useLoginUser from '../../hooks/useLoginUser';
+// provider
+// import useLoginUser from '../../hooks/useLoginUser';
+import useLoginCheck from '../../hooks/useLoginCheck';
 
 const MenuDrawer = memo((props) => {
   const {
@@ -19,7 +20,8 @@ const MenuDrawer = memo((props) => {
     onClickPost,
     onClickMypage,
   } = props;
-  const { loginUser } = useLoginUser();
+  // const { loginUser } = useLoginUser();
+  const { LoginState } = useLoginCheck();
   return (
     <Drawer isOpen={isOpen} placement="right" onClose={onClose} size="xs" finalFocusRef={btnRef}>
       <DrawerOverlay>
@@ -28,7 +30,8 @@ const MenuDrawer = memo((props) => {
           <DrawerHeader align="center">メニュー</DrawerHeader>
           <DrawerBody p={0} bg="grey.100">
             {/* eslint-disable  */}
-            {loginUser && (
+            {/* loginUserがtrueのとき */}
+            {LoginState && (
               <>
                 <MenuDrawerBtn onClick={onClickHome} onClose={onClose} >
                   ホーム
@@ -50,7 +53,8 @@ const MenuDrawer = memo((props) => {
                 </MenuDrawerBtn>
               </>
             )}
-            {loginUser || (
+            {/* loginUserがfalseのとき */}
+            {LoginState || (
                 <>
                   <MenuDrawerBtn onClick={onClickHome} onClose={onClose} >
                     ホーム

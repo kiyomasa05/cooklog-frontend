@@ -5,6 +5,7 @@ import { useHistory } from 'react-router-dom';
 
 import useMessage from './useMessege';
 import useLoginUser from './useLoginUser';
+import useLoginCheck from './useLoginCheck';
 
 import { loginUrl } from '../urls/index';
 
@@ -12,6 +13,7 @@ function useAuth() {
   const history = useHistory();
   const { showMessage } = useMessage();
   const { setLoginUser } = useLoginUser();
+  const { setLoginState } = useLoginCheck();
 
   const [loading, setLoading] = useState(false);
 
@@ -31,13 +33,13 @@ function useAuth() {
           { withCredentials: true }
         )
         .then((response) => {
-          if (response.data.logged_in) {
+          if (response.data.status === 200) {
             setLoginUser(response.data);
+            setLoginState(true);
             showMessage({ title: 'ログインしました', status: 'success' });
             const user_id = response.data.user.id;
             history.push(`/users/${user_id}`);
           }
-
           // 認証できなかった時のエラー
           else if (response.data.status === 401) {
             showMessage({ title: `${response.data.errors}`, status: 'error' });

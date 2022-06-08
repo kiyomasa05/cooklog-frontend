@@ -8,13 +8,14 @@ import React, { createContext, useState } from 'react';
 //   },
 //   logged_in: false,
 // };
-// loginUserはUserかnull=false
+// loginUserはUser（配列）かnull=false
 export const LoginUserContext = createContext({});
 
 // ログインユーザー情報を保持するcontext
 export function LoginUserProvider(props) {
   const { children } = props;
   const [loginUser, setLoginUser] = useState(null);
+  // const [loginUser, setLoginUser] = useState(initial_user);
 
   // eslint-disable-next-line react/jsx-no-constructed-context-values
   return <LoginUserContext.Provider value={{ loginUser, setLoginUser }}>{children}</LoginUserContext.Provider>;

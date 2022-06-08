@@ -8,6 +8,8 @@ import useLoginUser from '../../../hooks/useLoginUser';
 import useLogout from '../../../hooks/useLogout';
 import HeaderMenuBtn from '../../atom/btn/HeaderMemuBtn';
 
+import useLoginCheck from '../../../hooks/useLoginCheck';
+
 const HeaderMenu = memo(() => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = React.useRef();
@@ -24,6 +26,7 @@ const HeaderMenu = memo(() => {
   const onClickPost = () => history.push(`/users/${userId}/post`);
   const onClickMypage = () => history.push(`/users/${userId}`);
   const onClickLogout = () => logout();
+  const { LoginState } = useLoginCheck();
   return (
     <>
       <Flex
@@ -47,7 +50,8 @@ const HeaderMenu = memo(() => {
         <Flex align="center" fontSize="md" flexGrow={2} display={{ base: 'none', md: 'flex' }}>
           <Box pr={4}>
             {/* eslint-disable  */}
-            {loginUser || (
+            {/* loginUserがfalseのとき */}
+            {LoginState || (
               <>
                 <HeaderMenuBtn onClick={onClickSignup}>
                   新規登録
@@ -57,7 +61,8 @@ const HeaderMenu = memo(() => {
                 </HeaderMenuBtn>
               </>
             )}
-            {loginUser && (
+             {/* loginUserがtrueのとき */}
+            {LoginState && (
                 <>
                   <HeaderMenuBtn onClick={onClickMypage}>
                     マイページ

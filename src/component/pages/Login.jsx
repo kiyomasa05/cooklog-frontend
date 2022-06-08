@@ -8,6 +8,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import useAuth from '../../hooks/useAuth';
 import ErrorMessage from '../atom/form/ErrorMessage';
 
+// スキーマを定義
 const LoginSchema = yup.object().shape({
   email: yup.string().email('正しいメールアドレスを入力してください').required('emailは必須です'),
   password: yup
@@ -16,6 +17,7 @@ const LoginSchema = yup.object().shape({
     .max(15, 'passwordは15文字以内で入力して下さい')
     .required('パスワードは必須です'),
 });
+// ログイン機能 React-hook-form利用
 const Login = memo(() => {
   const { login, loading } = useAuth();
   const {
@@ -25,7 +27,7 @@ const Login = memo(() => {
   } = useForm({
     resolver: yupResolver(LoginSchema),
   });
-
+  // データをPostする関数 dataを渡す
   const onSubmit = (data) => {
     login(data);
   };

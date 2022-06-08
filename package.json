@@ -63,5 +63,6 @@
     "prettier": "^2.5.1",
     "react-test": "^0.10.2"
   },
+  "proxy": "http://localhost3000", 
   "homepage": "./"
 }
