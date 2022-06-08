@@ -14,6 +14,8 @@ import {
   TabPanel,
   useDisclosure,
   useColorModeValue,
+  Spinner,
+  Center
 } from '@chakra-ui/react';
 import { useHistory, useParams } from 'react-router-dom';
 
@@ -40,7 +42,7 @@ export const Mypage = memo(() => {
   const history = useHistory();
   const { id } = useParams();
 
-  const { CheckAuth } = useAuthCheck();
+  const { CheckAuth, UserLoading } = useAuthCheck();
 
   // リロード時にログイン状態が消えないように認証する
   // セッションに情報がはいらず、うまくいかない。
@@ -78,97 +80,108 @@ export const Mypage = memo(() => {
   const MyRecipes = recipes.filter((recipe) => recipe.user_id === loginUser.user.id);
   return (
     <>
-      {/* 上部のプロフィール部分 */}
-      <Grid h="200px" templateRows="repeat(6)" templateColumns="repeat(5)" gap={1} mx="auto" mt={78}>
-        <GridItem rowSpan={1} colSpan={6} ml={2} pb="-2" fontSize="lg">
-          {loginUser && (
-            `${loginUser.user.name}   さん`
-          )}
-        </GridItem>
-        <GridItem rowSpan={3} colSpan={2} mx="auto" display="flex" justifyContent="center" alignItems="center">
-          <Image
-            borderRadius="full"
-            boxSize="100px"
-            src={!loginUser.user.avatar_url ? 'gibbresh.png' : loginUser.user.avatar_url}
-            fallbackSrc="https://via.placeholder.com/250"
-            border="2px"
-            borderColor="gray.200"
-          />
-        </GridItem>
-        <GridItem rowSpan={1} colSpan={2} textAlign="center" display="flex" justifyContent="center" alignItems="center">
-          投稿レシピ
-        </GridItem>
-        <GridItem rowSpan={1} colSpan={2} display="flex" justifyContent="center" alignItems="center">
-          お気に入り
-        </GridItem>
-        <GridItem rowSpan={1} colSpan={2} display="flex" justifyContent="center" alignItems="center" fontSize="2xl">
-          {`${MyRecipes.length}`}
-        </GridItem>
-        <GridItem rowSpan={1} colSpan={2} display="flex" justifyContent="center" alignItems="center" fontSize="2xl">
-          {`${FavoRecipes.length}`}
-        </GridItem>
-        <GridItem rowSpan={1} colSpan={6}>
-          <Button w="100%" h="90%" onClick={onClickProfileEdit}>
-            編集
-          </Button>
-        </GridItem>
-      </Grid>
-      {/* レシピ表示部 */}
-      <Tabs isFitted variant="enclosed" onChange={(index) => setTabIndex(index)} bg={bg}>
-        <TabList mb="1em">
-          <Tab>投稿レシピ</Tab>
-          <Tab>お気に入りレシピ</Tab>
-        </TabList>
-        <TabPanels>
-          {/* 投稿レシピ */}
-          <TabPanel>
-            <Wrap>
-              {/* 繰り返し処理  loginUserは使ってなさそうなので、削除*/}
-              {MyRecipes.map((recipe) => (
-                <WrapItem key={recipe.id} overflow="hidden" m={0}>
-                  <RecipeCard
-                    id={recipe.id}
-                    imageUrl={recipe.image_url ? recipe.image_url : NoImage}
-                    title={recipe.title}
-                    time_required={recipe.time_required}
-                    food={recipe.food}
-                    created_at={recipe.created_at}
-                    process={recipe.process}
-                    // loginUser={loginUser}
-                    onClick={onClickRecipe}
-                  />
-                </WrapItem>
-              ))}
-            </Wrap>
-            {/* propsでloginUser使ってなさそうなので、削除 */}
-            <RecipeModal recipes={selectedRecipe} isOpen={isOpen} onClose={onClose} />
-          </TabPanel>
-          <TabPanel>
-            {/* お気に入りレシピ */}
-            {FavoRecipes || <p>お気に入りしたレシピが表示されます</p>}
-            <Wrap>
-              {FavoRecipes.map((recipe) => (
-                <WrapItem key={recipe.id} overflow="hidden" m={0}>
-                  <RecipeCard
-                    id={recipe.id}
-                    imageUrl={recipe.image_url ? recipe.image_url : NoImage}
-                    title={recipe.title}
-                    time_required={recipe.time_required}
-                    food={recipe.food}
-                    created_at={recipe.created_at}
-                    process={recipe.process}
-                    onClick={onClickRecipe}
-                  />
-                </WrapItem>
-              ))}
-            </Wrap>
-            {/* propsでLoginUserを使ってなさそうなので削除 */}
-            {selectedRecipe && (
-              <RecipeModal recipes={selectedRecipe} isOpen={isOpen} onClose={onClose} />
-            )}
-          </TabPanel>
-        </TabPanels>
-      </Tabs>
+      {/* user情報を取得するまで */}
+      {UserLoading ? (
+        <Center>
+          <Spinner thickness="6px" speed="0.65s" emptyColor="gray.200" color="blue.500" size="xl" mt="90px" />
+        </Center>
+      ) : (
+        // user情報取得後
+          <>
+            {/* // 上部のプロフィール部分  */}
+          <Grid h="200px" templateRows="repeat(6)" templateColumns="repeat(5)" gap={1} mx="auto" mt={78}>
+            <GridItem rowSpan={1} colSpan={6} ml={2} pb="-2" fontSize="lg">
+              {loginUser && (
+                `${loginUser.user.name}   さん`
+              )}
+            </GridItem>
+            <GridItem rowSpan={3} colSpan={2} mx="auto" display="flex" justifyContent="center" alignItems="center">
+              <Image
+                borderRadius="full"
+                boxSize="100px"
+                src={!loginUser ? 'gibbresh.png' : loginUser.user.avatar_url}
+                fallbackSrc="https://via.placeholder.com/250"
+                border="2px"
+                borderColor="gray.200"
+              />
+            </GridItem>
+            <GridItem rowSpan={1} colSpan={2} textAlign="center" display="flex" justifyContent="center" alignItems="center">
+              投稿レシピ
+            </GridItem>
+            <GridItem rowSpan={1} colSpan={2} display="flex" justifyContent="center" alignItems="center">
+              お気に入り
+            </GridItem>
+            <GridItem rowSpan={1} colSpan={2} display="flex" justifyContent="center" alignItems="center" fontSize="2xl">
+              {`${MyRecipes.length}`}
+            </GridItem>
+            <GridItem rowSpan={1} colSpan={2} display="flex" justifyContent="center" alignItems="center" fontSize="2xl">
+              {`${FavoRecipes.length}`}
+            </GridItem>
+            <GridItem rowSpan={1} colSpan={6}>
+              <Button w="100%" h="90%" onClick={onClickProfileEdit}>
+                編集
+              </Button>
+            </GridItem>
+          </Grid>
+          {/* // レシピ表示部 */}
+          <Tabs isFitted variant="enclosed" onChange={(index) => setTabIndex(index)} bg={bg}>
+            <TabList mb="1em">
+              <Tab>投稿レシピ</Tab>
+              <Tab>お気に入りレシピ</Tab>
+            </TabList>
+            <TabPanels>
+              投稿レシピ
+              <TabPanel>
+                <Wrap>
+                  {/* 繰り返し処理  loginUserは使ってなさそうなので、削除*/}
+                  {MyRecipes.map((recipe) => (
+                    <WrapItem key={recipe.id} overflow="hidden" m={0}>
+                      <RecipeCard
+                        id={recipe.id}
+                        imageUrl={recipe.image_url ? recipe.image_url : NoImage}
+                        title={recipe.title}
+                        time_required={recipe.time_required}
+                        food={recipe.food}
+                        created_at={recipe.created_at}
+                        process={recipe.process}
+                        // loginUser={loginUser}
+                        onClick={onClickRecipe}
+                      />
+                    </WrapItem>
+                  ))}
+                </Wrap>
+                {/* propsでloginUser使ってなさそうなので、削除 */}
+                <RecipeModal recipes={selectedRecipe} isOpen={isOpen} onClose={onClose} />
+              </TabPanel>
+              <TabPanel>
+                {/* お気に入りレシピ */}
+                {FavoRecipes || <p>お気に入りしたレシピが表示されます</p>}
+                <Wrap>
+                  {FavoRecipes.map((recipe) => (
+                    <WrapItem key={recipe.id} overflow="hidden" m={0}>
+                      <RecipeCard
+                        id={recipe.id}
+                        imageUrl={recipe.image_url ? recipe.image_url : NoImage}
+                        title={recipe.title}
+                        time_required={recipe.time_required}
+                        food={recipe.food}
+                        created_at={recipe.created_at}
+                        process={recipe.process}
+                        onClick={onClickRecipe}
+                      />
+                    </WrapItem>
+                  ))}
+                </Wrap>
+                {/* propsでLoginUserを使ってなさそうなので削除 */}
+                {selectedRecipe && (
+                  <RecipeModal recipes={selectedRecipe} isOpen={isOpen} onClose={onClose} />
+                )}
+              </TabPanel>
+            </TabPanels>
+          </Tabs>
+          </>
+          // ロード終わったところ
+      )}
     </>
   );
 });

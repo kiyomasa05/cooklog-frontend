@@ -22,7 +22,7 @@ const Index = memo(() => {
   const { CheckAuth } = useAuthCheck();
 
   // eslint-disable-next-line
-  useEffect(() => {CheckAuth()}, []);
+  useEffect(() => {CheckAuth()}, [] );
   // eslint-disable-next-line
   useEffect(() => getRecipe(), [recipes]);
 

@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useCallback } from 'react';
+import { useCallback, useState } from 'react';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 
@@ -17,15 +17,17 @@ const useAuthCheck = () => {
   const history = useHistory();
   const { showMessage } = useMessage();
 
-  // const CheckAuth = useCallback(async () => {
-  //   await axios
+  const [UserLoading, setUserLoading] = useState(false);
   const CheckAuth = useCallback(() => {
+    setUserLoading(true);
+    // ユーザー情報を取るまでロード中にする（他コンポーネントでコンパイルエラーが起きないようにするため）
     axios
       .get(LoggedinUrl, { withCredentials: true })
       .then((response) => {
         if (response.data.status === 200) {
           setLoginUser(response.data);
           setLoginState(true);
+          setUserLoading(false);
         }
         // 認証できなかった時のエラー
         else if (response.data.status === 401) {
@@ -40,9 +42,13 @@ const useAuthCheck = () => {
         showMessage({ title: '認証が確認できません、再度ログインし直してください', status: 'error' });
         setLoginUser(null);
         setLoginState(false);
+        setUserLoading(false);
         history.push('/login');
+      })
+      .finally(() => {
+        setUserLoading(false);
       });
   }, [history, showMessage, setLoginUser]);
-  return { CheckAuth };
+  return { CheckAuth, UserLoading };
 };
 export default useAuthCheck;
