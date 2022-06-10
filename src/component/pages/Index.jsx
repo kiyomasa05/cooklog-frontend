@@ -15,16 +15,14 @@ import useLoginUser from '../../hooks/useLoginUser';
 const Index = memo(() => {
   const { getRecipe, recipes, loading } = useGetRecipe();
   const { isOpen, onOpen, onClose } = useDisclosure();
-  // const { getUsers, loading, users } = useAllUsers();
   const { onSelectRecipe, selectedRecipe } = useSelectRecipe();
   const { loginUser } = useLoginUser();
-
   const { CheckAuth } = useAuthCheck();
 
   // eslint-disable-next-line
   useEffect(() => {CheckAuth()}, [] );
   // eslint-disable-next-line
-  useEffect(() => getRecipe(), [recipes]);
+  useEffect(() => getRecipe(), []);
 
   const onClickRecipe = useCallback(
     (id) => {
@@ -56,17 +54,14 @@ const Index = memo(() => {
                 food={recipe.food}
                 created_at={recipe.created_at}
                 process={recipe.process}
-                loginUser={loginUser}
                 onClick={onClickRecipe}
               />
             </WrapItem>
           ))}
         </Wrap>
       )}
-      {selectedRecipe ? (
+      {selectedRecipe && (
         <RecipeModal recipes={selectedRecipe} isOpen={isOpen} onClose={onClose} loginUser={loginUser} />
-      ) : (
-        <div />
       )}
     </>
   );

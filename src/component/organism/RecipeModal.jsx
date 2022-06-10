@@ -23,34 +23,7 @@ import RecipeEditBtn from './EditBtn';
 import FavoBtn from './FavoBtn';
 
 const RecipeModal = memo((props) => {
-  // const { isOpen, onClose, recipes, loginUser } = props;
-  const { isOpen, onClose, recipes } = props;
-
-  // const history = useHistory();
-  // const { callFavorite, deleteFavorite, initialFavoState } = useFavo();
-
-  // useEffect(() => {
-  //   initialFavoState(recipes?.id);
-  // }, [recipes]);
-
-  // // お気に入り登録機能
-  // const onClickFavo = () => {
-  //   callFavorite(recipes.id, loginUser.user.id);
-  // };
-  // // お気に入り解除機能
-  // const onClickFavosol = () => {
-  //   deleteFavorite(recipes.id, loginUser.user.id);
-  // };
-
-  // const recipeId = recipes?.id;
-  // const onClickRecipeEdit = useCallback(
-  //   () =>
-  //     history.push({
-  //       pathname: `/${recipeId}/edit`,
-  //       state: recipes,
-  //     }),
-  //   [history]
-  // );
+  const { isOpen, onClose, recipes, loginUser } = props;
 
   return (
     <Modal isOpen={isOpen} onClose={onClose} motionPreset="slideInBottom">
@@ -85,90 +58,20 @@ const RecipeModal = memo((props) => {
           </Stack>
         </ModalBody>
         <ModalFooter>
-          <RecipeEditBtn>編集</RecipeEditBtn>
-          <FavoBtn />
-          {
-            /* {conditionA ?
+          {/* ここは表示によってわけるところ */}
+          {loginUser &&
+            (loginUser.user.id === recipes?.user_id ? (
+              <RecipeEditBtn recipes={recipes}>編集</RecipeEditBtn>
+            ) : (
+              <FavoBtn loginUser={loginUser} recipes={recipes} />
+            ))}
+          {/*  {conditionA ?
                     (!conditionB ?
                         (<p>A</p>) :
                         (<p>B</p>)
                     ) :
                     (<p>C</p>)
-          } */
-            /* 関数としてここは分ける 関数モーダルになる */
-            /* {loginUser.user.id === recipes?.user_id ? (
-              // もしログインユーザーのidとレシピのidが一緒の場合true:false
-              (favorite === true ? (
-                // かつもし、favoriteがtrueの場合 true:false
-                <Button
-                leftIcon={<StarIcon />}
-                colorScheme="yellow"
-                mr={3}
-                onClick={onClickFavosol}
-              >
-                お気に入り登録済
-              </Button>)
-              : (<Button
-                leftIcon={<StarIcon color="white" />}
-                colorScheme="blue"
-                color="white"
-                mr={3}
-                onClick={onClickFavo}
-              >
-                お気に入り登録
-              </Button>
-                )):
-              (<Button
-                leftIcon={<EditIcon color="black" />}
-                colorScheme="gray"
-                color="black"
-                mr={3}
-                onClick={onClickRecipeEdit}
-              >
-                編集
-              </Button>)) */
-            // もしログインユーザーのidとレシピのidが別の場合false
-            // ) : (
-            //   <Button
-            //     leftIcon={<EditIcon color="black" />}
-            //     colorScheme="gray"
-            //     color="black"
-            //     mr={3}
-            //     onClick={onClickRecipeEdit}
-            //   >
-            //     編集
-            //   </Button>
-            // )}
-            // {/* loginしているuser_idと違うレシピだけお気に入りボタン表示 logoutするとここがコンパイルエラーになる
-            // もしログインユーザーのidとレシピを登録したidが違う場合、→favo使える
-            // 一緒の場合、編集が出る
-            // さらにもし、favoriteがfalseの場合、フォボボタンが押せる
-            // favoriteがtrueの場合、解除ボタンが押せる
-            // */}
-            // { loginUser.user.id !== recipes?.user_id ? (favorite === false ? (
-            //   <Button
-            //     leftIcon={<StarIcon color="white" />}
-            //     colorScheme="blue"
-            //     color="white"
-            //     mr={3}
-            //     onClick={onClickFavo}
-            //   >
-            //     お気に入り登録
-            //   </Button>
-            // ) : (
-            //   <Button
-            //     leftIcon={<StarIcon />}
-            //     colorScheme="yellow"
-            //     mr={3}
-            //     onClick={onClickFavosol}
-            //   >
-            //     お気に入り登録済
-            //   </Button>
-            // )
-            // ) : (
-            //   <div>エラー</div>
-            // )}
-          }
+          } */}
           <Button colorScheme="blue" mr={3} onClick={onClose}>
             <SmallCloseIcon mr="2" />
             閉じる
