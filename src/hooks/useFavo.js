@@ -4,22 +4,18 @@ import axios from 'axios';
 
 // 部品
 import useMessage from './useMessege';
-// import { useLoginUser } from './useLoginUser';
-// import { useGetFavo } from '../hooks/useGetFavo';
 
 // url
 import { favoURL, setFavoURL } from '../urls/index';
 
 const useFavo = () => {
   const { showMessage } = useMessage();
-  // const { loginUser } = useLoginUser();
   const [favorite, setFavorite] = useState(false);
 
   const initialFavoState = useCallback((recipe_id) => {
     // recipeのidが取得できたら通信するように条件分岐
     if (recipe_id !== undefined) {
       axios
-        // .get(setFavoURL(`${recipe?.id}`),
         .get(setFavoURL(recipe_id), { withCredentials: true })
         .then((response) => {
           setFavorite(response.data); // favoriteのtrueかfalseが入る
@@ -38,7 +34,7 @@ const useFavo = () => {
           favoURL(recipe_id),
           {
             data: {
-              user_id: loginUserId, // sessionさえ送ればidいらないんじゃない？
+              user_id: loginUserId, 
               recipe_id,
             },
           },
@@ -80,7 +76,6 @@ const useFavo = () => {
             showMessage({ title: 'お気に入り解除しました', status: 'success' });
             setFavorite(false);
           }
-          // 今基本的には上だけ。rails でif文使ってないから
           // 認証できなかった時のエラー
           else if (response.data.status === 500) {
             showMessage({ title: `${response.data.errors}`, status: 'error' });

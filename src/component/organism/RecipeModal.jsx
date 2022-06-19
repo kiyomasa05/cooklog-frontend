@@ -15,9 +15,6 @@ import {
 } from '@chakra-ui/react';
 import { SmallCloseIcon } from '@chakra-ui/icons';
 import moment from 'moment/moment';
-// import { useHistory } from 'react-router-dom';
-
-// import { useFavo } from '../hooks/useFavo';
 import NoImage from '../../images/no-image.png';
 import RecipeEditBtn from './EditBtn';
 import FavoBtn from './FavoBtn';
@@ -65,13 +62,6 @@ const RecipeModal = memo((props) => {
             ) : (
               <FavoBtn loginUser={loginUser} recipes={recipes} />
             ))}
-          {/*  {conditionA ?
-                    (!conditionB ?
-                        (<p>A</p>) :
-                        (<p>B</p>)
-                    ) :
-                    (<p>C</p>)
-          } */}
           <Button colorScheme="blue" mr={3} onClick={onClose}>
             <SmallCloseIcon mr="2" />
             閉じる
