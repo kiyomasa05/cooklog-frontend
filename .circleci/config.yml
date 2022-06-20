@@ -1,0 +1,47 @@
+version: 2.1
+
+orbs:
+  heroku: circleci/heroku@1.2.6
+
+jobs:
+  build:
+    docker:
+      - image: cimg/node:18.4.0
+    steps:
+      - checkout
+      - run: node --version
+  test:
+    docker:
+        - image: cimg/node:18.4.0
+    steps:
+        - checkout
+        - run: yarn install
+        - run: yarn test
+
+  deploy:
+    docker:
+      - image: cimg/node:18.4.0
+    steps:
+      - checkout
+      - setup_remote_docker:
+          version: 20.10.11
+      - heroku/install
+      - heroku/deploy-via-git
+      
+# 実行順
+workflows:
+  version: 2
+  build_test_and_deploy:
+    jobs:
+      - build
+      - test:
+          requires:
+            - build
+      - deploy:
+          requires:
+            - test
+          context:
+            - cooklog-frontend
+          filters:
+            branches:
+              only: master
