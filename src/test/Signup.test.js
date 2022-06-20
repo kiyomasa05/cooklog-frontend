@@ -1,14 +1,11 @@
 import React from 'react';
 import { render, screen, cleanup, waitFor, act } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-// import { act, renderHook } from "@testing-library/react-hooks";
-// import { act } from 'react-dom/test-utils';
+
 import { rest } from 'msw';
 import { setupServer } from 'msw/node';
-import Signup from '../containers/Signup';
+import Signup from '../component/pages/Signup';
 
-// こっちはボタンを押してsignup関数hooksが起動するかまでのテストの役割
-// 実際にapiに通信するのは、hooksテストで役割を持つ
 const server = setupServer(
   rest.post('http://localhost:3000/api/v1/signup', (req, res, ctx) =>
     res(
@@ -19,7 +16,6 @@ const server = setupServer(
     )
   )
 );
-// const mockSignin = jest.fn((email, password) => Promise.resolve({ email, password }));
 
 beforeAll(() => server.listen());
 afterEach(() => {
@@ -44,7 +40,7 @@ describe('Rendering', () => {
     expect(screen.getByRole('img')).toBeTruthy();
     expect(screen.getByLabelText('アバター写真')).toBeTruthy();
     expect(screen.getByPlaceholderText('画像アップロード')).toBeTruthy();
-    expect(screen.getByDisplayValue('新規登録')).toBeTruthy();
+    expect(screen.getByRole('button')).toBeTruthy();
   });
 });
 // ここまで問題なし
@@ -119,7 +115,7 @@ describe('Check for errors before fetch API', () => {
     expect(screen.queryByText(/パスワードは必須です/)).toBeNull();
     expect(screen.queryByText(/emailは必須です/)).toBeNull();
     await act(async () => {
-      userEvent.click(screen.getByDisplayValue('新規登録'));
+      userEvent.click(screen.getByRole('button'));
     });
     await waitFor(() => {
       expect(screen.findByText(/名前は必須です/)).toBeTruthy();
