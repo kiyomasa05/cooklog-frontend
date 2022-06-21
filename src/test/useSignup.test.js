@@ -1,16 +1,15 @@
-// import React from 'react'
-// import { render, screen, cleanup,} from "@testing-library/react"
-// import userEvent from "@testing-library/user-event";
+import { render, screen, cleanup,waitFor} from "@testing-library/react"
+import userEvent from "@testing-library/user-event";
 // import axios from 'axios';
 // import { createMemoryHistory } from 'history'
 // import { Router } from 'react-router-dom';
 
-// import { act, renderHook ,HookResult,} from "@testing-library/react-hooks";
-// import { rest } from "msw";
-// import { setupServer } from "msw/node";
+import { act, renderHook ,HookResult,} from "@testing-library/react-hooks";
+import { rest } from "msw";
+import { setupServer } from "msw/node";
 
 // import { useSignup } from '../hooks/useSignup';
-// import { Signup } from '../containers/Signup';
+import Signup from '../component/pages/Signup';
 
 // // jest.mock('axios');
 
@@ -36,7 +35,22 @@
 //     }
 //   }
 // }
-
+const server = setupServer(
+  rest.post('/signup', (req, res, ctx) => {
+    return res(
+      ctx.status(200),
+      ctx.json({
+        // eslint-disable-next-line no-undef
+        status: created,
+        logged_in: true,
+        user: {
+          id: 1,
+          email: 'example@example.com'
+        },
+      })
+    );
+  })
+);
 // const server = setupServer(
 //     rest.post("http://localhost:3000/api/v1/signup", (req, res, ctx) => {
 //         return res(
@@ -47,15 +61,35 @@
 //             })//jsonオブジェクトを返す
 //         )
 //     }))
-//       //10/8 ここpostにしてあるけど、どのデータを送るかわかっているのか？なんでもいいからpost通信受けたらレスポンスを返すのか？
-// //server起動
-// beforeAll(() => server.listen());
-// afterEach(() => {
-//   server.resetHandlers();//決まり
-//   cleanup();
-// });
-// afterAll(() => server.close());
 
+// //server起動
+beforeAll(() => server.listen());
+afterEach(() => {
+  server.resetHandlers();//決まり
+  cleanup();
+});
+afterAll(() => server.close());
+
+describe('fetch API', () => {
+  it('Post API', async () => {
+    render(<Signup />);
+    const inputName = screen.getByPlaceholderText('name');
+    const inputPassword = screen.getByPlaceholderText('password');
+    const inputPasswordConfirm = screen.getByPlaceholderText('password');
+    const inputEmail = screen.getByPlaceholderText('email');
+    act(() => {
+      userEvent.type(inputPassword, '1234');
+      userEvent.type(inputPasswordConfirm, '1234');
+      userEvent.type(inputEmail, 'example@example.com');
+      userEvent.type(inputName, 'example');
+      userEvent.click(screen.getByRole('button'));
+    });
+    await waitFor(() => {
+      // eslint-disable-next-line jest/valid-expect
+      expect(screen.findByText('新規登録しました'));
+    });
+  });
+});
 // //hooksを呼ぶ
 // describe('Login', () => {
 //   it('Signinが成功時に画面にshowmessage（新規登録しました）が出るか', async () => {

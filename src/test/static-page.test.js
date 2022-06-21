@@ -4,7 +4,7 @@ import userEvent from '@testing-library/user-event';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { createMemoryHistory } from 'history';
 import { Router } from 'react-router-dom';
-import Home from '../containers/static_page';
+import Home from '../component/pages/static_page';
 
 afterEach(() => cleanup());
 
@@ -15,9 +15,6 @@ describe('Rendering', () => {
     // screen.debug();//画面全体
     // header
     expect(screen.getByRole('heading')).toBeTruthy();
-    expect(screen.getByText('COOKLOG')).toBeTruthy();
-    expect(screen.getAllByRole('list')[0]).toBeTruthy();
-
     expect(screen.getByText('お気に入りのレシピを投稿しよう')).toBeTruthy();
     expect(screen.getByText('新規登録')).toBeTruthy();
     // まだログインしてないからマイページとかは出ない
@@ -25,8 +22,6 @@ describe('Rendering', () => {
     // main
     expect(screen.getAllByRole('button')[0]).toBeTruthy();
     expect(screen.getAllByRole('button')[1]).toBeTruthy();
-    expect(screen.getAllByRole('button')[2]).toBeTruthy();
-    // ("button")[0] がmenuIconButton
   });
 });
 
@@ -41,7 +36,7 @@ describe('button conditionally triggered', () => {
     // Routerがないとエラーとなるので注意
     // onclick関数が呼び出されるかテストしたい
     // const onClickSignup = jest.fn();
-    userEvent.click(screen.getAllByRole('button')[1]);
+    userEvent.click(screen.getAllByRole('button')[0]);
     expect(history).toHaveLength(2);
     // histrory配列の長さ
     expect(history.location.pathname).toBe('/signup');
@@ -55,7 +50,7 @@ describe('button conditionally triggered', () => {
         <Home />
       </Router>
     );
-    userEvent.click(screen.getAllByRole('button')[2]);
+    userEvent.click(screen.getAllByRole('button')[1]);
     expect(history).toHaveLength(2);
     expect(history.location.pathname).toBe('/login');
   });
