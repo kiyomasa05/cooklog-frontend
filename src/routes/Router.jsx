@@ -24,9 +24,6 @@ export default function Router() {
                     <Header>{route.children}</Header>
                   </Route>
                 ))}
-                <Route path="*">
-                  <Page404 />
-                </Route>
               </Switch>
             )}
           />
@@ -40,9 +37,6 @@ export default function Router() {
                     <Header>{route.children}</Header>
                   </Route>
                 ))}
-                <Route path="*">
-                  <Page404 />
-                </Route>
               </Switch>
             )}
           />
