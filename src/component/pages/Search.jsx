@@ -1,23 +1,22 @@
-/* eslint-disable */
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, memo, useCallback, useState } from 'react';
 import { useDisclosure, Wrap, WrapItem, Center, Heading, Input } from '@chakra-ui/react';
 
+// 部品
 import NoImage from '../../images/no-image.png';
-
-import useGetRecipe from '../../hooks/useGetRecipe';
-
 import RecipeCard from '../organism/RecipeCard';
-import useAuthCheck from '../../hooks/useAuthCheck';
 import RecipeModal from '../organism/RecipeModal';
+// hooks
+import useGetRecipe from '../../hooks/useGetRecipe';
+import useAuthCheck from '../../hooks/useAuthCheck';
 import useSelectRecipe from '../../hooks/useSelectRecipe';
 import useLoginUser from '../../hooks/useLoginUser';
 
 const Search = memo(() => {
-  const { getRecipe, recipes, loading } = useGetRecipe();
+  const { getRecipe, recipes } = useGetRecipe();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { onSelectRecipe, selectedRecipe } = useSelectRecipe();
   const { loginUser } = useLoginUser();
-
   const { CheckAuth } = useAuthCheck();
 
   useEffect(() => {
@@ -53,6 +52,7 @@ const Search = memo(() => {
     }
 
     // 検索窓に入力した文字列が入っているtitleのレシピを格納し、filterdrecipeにセットする
+    // eslint-disable-next-line
     const Resultrecipes = recipes.filter((recipe, index) => {
       if (recipe.title.indexOf(`${searchKeywords}`) >= 0) return true;
     });

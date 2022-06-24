@@ -26,19 +26,14 @@ import { useHistory, useLocation } from 'react-router-dom';
 import axios from 'axios';
 
 // hooks
-// できればuseformでいきたい
-// import { useForm } from 'react-hook-form';
-// import { usePostRecipe } from '../hooks/usePostRecipe';
 import useLoginUser from '../../hooks/useLoginUser';
-// import { useAuthCheck } from '../hooks/useAuthCheck';
 import useMessage from '../../hooks/useMessege';
 
-// index
+// url
 import { recipeEditURL } from '../../urls/index';
 
 const RecipeEdit = memo(() => {
   const { state } = useLocation();
-  // const { postRecipe } = usePostRecipe();
   const { loginUser } = useLoginUser();
   const history = useHistory();
   const { showMessage } = useMessage();
@@ -49,10 +44,7 @@ const RecipeEdit = memo(() => {
   const [food, setFood] = useState(state.food);
   const [process, setProcess] = useState(state.process);
   const [time_required, setTime_required] = useState(state.time_required);
-  // const [image, setImage] = useState({ data: "", name: "" })
   const [image, setImage] = useState({ data: state.image_url, name: state.title });
-  // name
-  // 変えなかった場合、空文字になってしまう 一旦仮置き
 
   const handleImageSelect = (e) => {
     const reader = new FileReader();
@@ -71,7 +63,6 @@ const RecipeEdit = memo(() => {
 
   const onSubmit = () => {
     setLoading(true);
-    // url送信先 patch recipeEditURL
     axios
       .patch(
         recipeEditURL(state.id),

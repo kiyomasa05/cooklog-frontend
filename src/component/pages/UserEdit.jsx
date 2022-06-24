@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { memo, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import {
@@ -28,10 +29,9 @@ const UserEdit = memo(() => {
 
   const { CheckAuth } = useAuthCheck();
 
-  // eslint-disable-next-line no-shadow
   useEffect(() => {
     CheckAuth();
-  }, [CheckAuth]);
+  }, []);
 
   const {
     register,
@@ -68,7 +68,6 @@ const UserEdit = memo(() => {
     setValue('email', loginUser.user.email);
   });
   const Pattern = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
-  // 再レンダー時に入力した名前が戻ってしまうが、いったんOK写真選択じに戻ってしまう
   return (
     <Flex mt="80px" alignItems="center" justifyContent="center">
       <Box bg="white" w="sm" p={4} borderRadius="md" shadow="md">
@@ -156,7 +155,6 @@ const UserEdit = memo(() => {
                 minLength: 4,
               })}
             />
-            {/* {errors.password?.type === "required" && <Text fontSize="sm" color="red" m={0} p={0}>"パスワードは必須です"</Text>} */}
             {errors.password?.type === 'minLength' && (
               <Text fontSize="sm" color="red" m={0} p={0}>
                 パスワードは4文字以上で入力して下さい
@@ -174,9 +172,6 @@ const UserEdit = memo(() => {
                 minLength: 4,
               })}
             />
-            {/* react-hook-formで同じならエラーとしたい
-            passwordの入力値を保持し、比べて実装予定 */}
-            {/* {errors.password?.type === "required" && <Text fontSize="sm" color="red" m={0} p={0}>"パスワードは必須です"</Text>} */}
             {errors.password?.type === 'minLength' && (
               <Text fontSize="sm" color="red" m={0} p={0}>
                 パスワードは4文字以上で入力して下さい

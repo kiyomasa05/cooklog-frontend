@@ -22,21 +22,18 @@ import {
   FormControl,
   FormLabel,
 } from '@chakra-ui/react';
-// import { useForm } from 'react-hook-form';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 
-// hooks
-// import { usePostRecipe } from '../hooks/usePostRecipe';
+// provider
 import useLoginUser from '../../hooks/useLoginUser';
-// import { useAuthCheck } from '../hooks/useAuthCheck';
+
 import useMessage from '../../hooks/useMessege';
 
 // urls
 import { post } from '../../urls/index';
 
 export default function Posts() {
-  // const { postRecipe } = usePostRecipe();
   const { loginUser } = useLoginUser();
   const history = useHistory();
   const { showMessage } = useMessage();
@@ -69,7 +66,6 @@ export default function Posts() {
     axios
       .post(
         post,
-        // "http://localhost:3000/api/v1/recipes",
         {
           recipe: {
             user_id: loginUser.user.id,

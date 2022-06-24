@@ -55,7 +55,7 @@ const RecipeModal = memo((props) => {
           </Stack>
         </ModalBody>
         <ModalFooter>
-          {/* ここは表示によってわけるところ */}
+          {/* レシピ作成者のみ編集可能に */}
           {loginUser &&
             (loginUser.user.id === recipes?.user_id ? (
               <RecipeEditBtn recipes={recipes}>編集</RecipeEditBtn>

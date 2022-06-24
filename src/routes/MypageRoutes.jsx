@@ -1,11 +1,11 @@
 import React from 'react';
-import { Mypage } from '../component/pages/Mypage';
+import Mypage from '../component/pages/Mypage';
 import Page404 from '../component/pages/404';
 import UserEdit from '../component/pages/UserEdit';
 import Post from '../component/pages/Post';
 
 const MypageRoutes = [
-  // users/
+  // users/〜
   {
     path: '/:id',
     exact: true,
