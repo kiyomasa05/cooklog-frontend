@@ -11,6 +11,7 @@ module.exports = {
     'plugin:jest/recommended',
     'plugin:jest/style',
     'plugin:prettier/recommended', // highlight-line
+    'plugin:react-hooks/recommended',
   ],
   globals: {
     Atomics: 'readonly',
@@ -39,6 +40,7 @@ module.exports = {
     'react/jsx-props-no-spreading': 'off',
     'react/react-in-jsx-scope': 'off',
     'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx'] }],
+    'react-hooks/exhaustive-deps': 'off',
     // https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/jsx-filename-extension.md
   },
 };

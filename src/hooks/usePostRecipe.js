@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import { useCallback, useState } from 'react';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
@@ -29,7 +28,6 @@ const usePostRecipe = () => {
               time_required: data.time_required,
               food: data.food,
               process: data.process,
-              // image
             },
           },
           { withCredentials: true }

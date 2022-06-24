@@ -3,7 +3,6 @@ import { Drawer, DrawerBody, DrawerHeader, DrawerOverlay, DrawerContent, DrawerC
 // atom
 import MenuDrawerBtn from '../atom/btn/MenuDrawerBtn';
 // provider
-// import useLoginUser from '../../hooks/useLoginUser';
 import useLoginCheck from '../../hooks/useLoginCheck';
 
 const MenuDrawer = memo((props) => {
@@ -20,7 +19,6 @@ const MenuDrawer = memo((props) => {
     onClickPost,
     onClickMypage,
   } = props;
-  // const { loginUser } = useLoginUser();
   const { LoginState } = useLoginCheck();
   return (
     <Drawer isOpen={isOpen} placement="right" onClose={onClose} size="xs" finalFocusRef={btnRef}>

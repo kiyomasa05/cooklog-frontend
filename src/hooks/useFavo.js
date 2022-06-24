@@ -1,4 +1,3 @@
-/* eslint-disable */
 import { useCallback, useState } from 'react';
 import axios from 'axios';
 
@@ -12,20 +11,22 @@ const useFavo = () => {
   const { showMessage } = useMessage();
   const [favorite, setFavorite] = useState(false);
 
-  const initialFavoState = useCallback((recipe_id) => {
-    // recipeのidが取得できたら通信するように条件分岐
-    if (recipe_id !== undefined) {
-      axios
-        .get(setFavoURL(recipe_id), { withCredentials: true })
-        .then((response) => {
-          setFavorite(response.data); // favoriteのtrueかfalseが入る
-        })
-        .catch((e) => {
-          showMessage({ title: `${e}`, status: 'error' });
-          console.log(e);
-        });
-    }
-  }, [showMessage]);
+  const initialFavoState = useCallback(
+    (recipe_id) => {
+      // recipeのidが取得できたら通信するように条件分岐
+      if (recipe_id !== undefined) {
+        axios
+          .get(setFavoURL(recipe_id), { withCredentials: true })
+          .then((response) => {
+            setFavorite(response.data); // favoriteのtrueかfalseが入る
+          })
+          .catch((e) => {
+            showMessage({ title: `${e}`, status: 'error' });
+          });
+      }
+    },
+    [showMessage]
+  );
 
   const callFavorite = useCallback(
     (recipe_id, loginUserId) => {
@@ -34,7 +35,7 @@ const useFavo = () => {
           favoURL(recipe_id),
           {
             data: {
-              user_id: loginUserId, 
+              user_id: loginUserId,
               recipe_id,
             },
           },
@@ -51,7 +52,7 @@ const useFavo = () => {
           }
           // うまくpostできなかった時のエラー
         })
-        .catch((e) => {
+        .catch(() => {
           showMessage({ title: 'お気に入り登録できませんでした。', status: 'error' });
         });
     },
@@ -82,7 +83,7 @@ const useFavo = () => {
           }
           // うまくpostできなかった時のエラー
         })
-        .catch((e) => {
+        .catch(() => {
           showMessage({ title: 'お気に入り解除できませんでした。', status: 'error' });
         });
     },
