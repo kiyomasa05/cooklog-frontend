@@ -31,11 +31,6 @@
     "eject": "react-scripts eject",
     "lint-fix": "eslint --fix './src/**/*.{js,jsx}' && prettier --write './src/**/*.{js,jsx}' "
   },
-  "eslintConfig": {
-    "extends": [
-      "react-app"
-    ]
-  },
   "browserslist": {
     "production": [
       ">0.2%",

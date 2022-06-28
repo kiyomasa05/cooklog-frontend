@@ -1,12 +1,12 @@
-import { render, screen, cleanup,waitFor} from "@testing-library/react"
-import userEvent from "@testing-library/user-event";
+import { render, screen, cleanup, waitFor } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 // import axios from 'axios';
 // import { createMemoryHistory } from 'history'
 // import { Router } from 'react-router-dom';
 
-import { act, renderHook ,HookResult,} from "@testing-library/react-hooks";
-import { rest } from "msw";
-import { setupServer } from "msw/node";
+import { act } from '@testing-library/react-hooks';
+import { rest } from 'msw';
+import { setupServer } from 'msw/node';
 
 // import { useSignup } from '../hooks/useSignup';
 import Signup from '../component/pages/Signup';
@@ -45,7 +45,7 @@ const server = setupServer(
         logged_in: true,
         user: {
           id: 1,
-          email: 'example@example.com'
+          email: 'example@example.com',
         },
       })
     );
@@ -65,7 +65,7 @@ const server = setupServer(
 // //server起動
 beforeAll(() => server.listen());
 afterEach(() => {
-  server.resetHandlers();//決まり
+  server.resetHandlers(); //決まり
   cleanup();
 });
 afterAll(() => server.close());
@@ -91,7 +91,9 @@ describe('fetch API', () => {
   });
 });
 // //hooksを呼ぶ
+// eslint-disable-next-line jest/no-commented-out-tests
 // describe('Login', () => {
+// eslint-disable-next-line jest/no-commented-out-tests
 //   it('Signinが成功時に画面にshowmessage（新規登録しました）が出るか', async () => {
 //     //一旦itの中に入れているが後で外だしするかも
 //     //hooksを呼ぶそこに定義したデータを引数として入れる

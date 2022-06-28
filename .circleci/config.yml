@@ -20,12 +20,8 @@ jobs:
 
   deploy:
     executor: heroku/default
-    # docker:
-    #   - image: cimg/node:18.4.0
     steps:
       - checkout
-      # - setup_remote_docker:
-      #     version: 20.10.11
       - heroku/install
       - heroku/deploy-via-git
       
@@ -41,8 +37,6 @@ workflows:
       - deploy:
           requires:
             - test
-          # context:
-          #   - cooklog-frontend
           filters:
             branches:
               only: master

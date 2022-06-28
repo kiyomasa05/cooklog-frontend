@@ -23,7 +23,7 @@ import useLoginUser from '../../hooks/useLoginUser';
 import useAuthCheck from '../../hooks/useAuthCheck';
 
 const UserEdit = memo(() => {
-  const { userEdit, loading } = useUserEdit();
+  const { userEdit, userEditNoAvatar, loading } = useUserEdit();
   const { loginUser } = useLoginUser();
   const { id } = useParams();
 
@@ -41,12 +41,15 @@ const UserEdit = memo(() => {
   } = useForm({});
 
   const [avatar, setAvatar] = useState({
-    data: loginUser.user.avatar_url ? loginUser.user.avatar_url : '',
-    name: loginUser.user.name,
+    // data: loginUser.user.avatar_url ? loginUser.user.avatar_url : '',
+    // name: loginUser.user.name,
   });
-
   const onSubmit = (data) => {
-    userEdit(data, id, avatar);
+    if (avatar.name) {
+      userEdit(data, id, avatar);
+    } else {
+      userEditNoAvatar(data, id);
+    }
   };
   const handleImageSelect = (e) => {
     const reader = new FileReader();
@@ -82,7 +85,11 @@ const UserEdit = memo(() => {
                 アバター写真
               </FormLabel>
               <Image
-                src={!avatar.data ? 'gibbresh.png' : avatar.data}
+                // 設定された画像と初期画像を表示
+                src={
+                  // eslint-disable-next-line no-nested-ternary
+                  !avatar.data ? (!loginUser.user.avatar_url ? 'gibbresh.png' : loginUser.user.avatar_url) : avatar.data
+                }
                 fallbackSrc="https://via.placeholder.com/250"
                 boxSize={{ base: '250px', md: '400px' }}
                 borderRadius="full"

@@ -10,7 +10,7 @@ import ErrorMessage from '../atom/form/ErrorMessage';
 import SignupSchema from '../../schema/SignupSchema';
 
 const Signup = memo(() => {
-  const { signup, loading } = useSignup();
+  const { signup, signupNoImage, loading } = useSignup();
   const {
     register,
     handleSubmit,
@@ -19,10 +19,20 @@ const Signup = memo(() => {
     resolver: yupResolver(SignupSchema),
   });
 
-  const [avatar, setAvatar] = useState({ data: '', name: '' });
+  const [avatar, setAvatar] = useState({
+    // data: '', name: ''
+  });
+
+  // const onSubmit = (data) => {
+  //   signup(data, avatar);
+  // };
 
   const onSubmit = (data) => {
-    signup(data, avatar);
+    if (avatar.name) {
+      signup(data, avatar);
+    } else {
+      signupNoImage(data);
+    }
   };
 
   const handleImageSelect = async (e) => {

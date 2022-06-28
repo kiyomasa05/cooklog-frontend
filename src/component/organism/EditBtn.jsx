@@ -21,6 +21,8 @@ const RecipeEditBtn = memo((props) => {
     [history, recipeId, recipes]
   );
 
+  // eslint-disable-next-line no-console
+  console.log(recipes);
   return (
     <Button leftIcon={<EditIcon color="black" />} colorScheme="gray" color="black" mr={3} onClick={onClickRecipeEdit}>
       {children}

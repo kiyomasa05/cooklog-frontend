@@ -51,7 +51,39 @@ const useUserEdit = () => {
       });
   }, []);
 
-  return { userEdit, loading };
+  const userEditNoAvatar = useCallback((data, userId) => {
+    setLoading(true);
+    axios
+      .patch(
+        userEditURL(userId),
+        {
+          user: {
+            name: data.name,
+            email: data.email,
+            password: data.password,
+            password_confirmation: data.password_confirmation,
+          },
+        },
+        { withCredentials: true }
+      )
+      .then((response) => {
+        if (response.data.status === 'updated') {
+          setLoginUser(response.data);
+          showMessage({ title: '編集しました', status: 'success' });
+          const user_id = response.data.user.id;
+          history.push(`/users/${user_id}`);
+        }
+        // 登録できなかった時のエラー
+        else if (response.data.status === 500) {
+          showMessage({ title: `${response.data.errors}`, status: 'error' });
+        }
+      })
+      .catch(() => {
+        showMessage({ title: '登録できませんでした', status: 'error' });
+        setLoading(false);
+      });
+  }, []);
+  return { userEdit, userEditNoAvatar, loading };
 };
 
 export default useUserEdit;

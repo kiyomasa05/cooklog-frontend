@@ -54,7 +54,42 @@ function useSignup() {
       });
   }, []);
 
-  return { signup, loading };
+  const signupNoImage = useCallback(async (data) => {
+    setLoading(true);
+    // ローディングアイコンをtrueに
+    await axios
+      .post(
+        signupURL,
+        {
+          user: {
+            name: data.name,
+            email: data.email,
+            password: data.password,
+            password_confirmation: data.password_confirmation,
+          },
+        },
+        { withCredentials: true }
+      )
+      .then((response) => {
+        if (response.data.status === 'created') {
+          setLoginUser(response.data);
+          showMessage({ title: '新規登録しました', status: 'success' });
+          const user_id = response.data.user.id;
+          history.push(`/users/${user_id}`);
+        }
+
+        // 登録できなかった時のエラー
+        else if (response.data.status === 500) {
+          showMessage({ title: `${response.data.errors}`, status: 'error' });
+        }
+      })
+      .catch(() => {
+        showMessage({ title: '登録できませんでした,', status: 'error' });
+        setLoading(false);
+      });
+  }, []);
+
+  return { signup, signupNoImage, loading };
 }
 
 export default useSignup;
