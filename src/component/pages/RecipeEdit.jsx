@@ -13,13 +13,13 @@ import {
   Center,
   NumberInput,
   NumberInputField,
-  NumberInputStepper,
-  NumberIncrementStepper,
-  NumberDecrementStepper,
-  Slider,
-  SliderTrack,
-  SliderFilledTrack,
-  SliderThumb,
+  // NumberInputStepper,
+  // NumberIncrementStepper,
+  // NumberDecrementStepper,
+  // Slider,
+  // SliderTrack,
+  // SliderFilledTrack,
+  // SliderThumb,
   FormControl,
   FormLabel,
   FormHelperText,
@@ -38,7 +38,9 @@ import useAuthCheck from '../../hooks/useAuthCheck';
 import useRecipeEdit from '../../hooks/useRecipeEdit';
 
 const RecipeEdit = memo(() => {
+  // const { recipe } = props;
   const { recipeEdit, recipeEditNoImage, loading } = useRecipeEdit;
+
   const { state } = useLocation();
   const { loginUser } = useLoginUser();
   // const history = useHistory();
@@ -154,7 +156,7 @@ const RecipeEdit = memo(() => {
                 fontSize={{ base: 'md', md: 'xl' }}
                 radii="1rem"
                 placeholder="タイトル(20文字まで)"
-                value={state.title}
+                // value={state.title}
                 {...register('title', { required: true, maxLength: 50 })}
               />
               {errors.title?.type === 'required' && (
@@ -171,7 +173,7 @@ const RecipeEdit = memo(() => {
             <Image
               src={
                 // eslint-disable-next-line no-nested-ternary
-                !image.data ? (!state.image_url ? 'gibbresh.png' : state.image_url) : image.data
+                !image.data ? (!state?.image_url ? 'gibbresh.png' : state?.image_url) : image.data
               }
               // {!image.data ? 'gibbresh.png' : image.data}
               fallbackSrc="https://via.placeholder.com/250"
@@ -197,7 +199,7 @@ const RecipeEdit = memo(() => {
               id="food"
               placeholder="例）鶏肉、キャベツ、砂糖、塩..."
               fontSize={{ base: 'sm', md: 'md' }}
-              value={state.food}
+              // value={state.food}
               {...register('food', { required: true })}
             />
           </Stack>
@@ -209,7 +211,7 @@ const RecipeEdit = memo(() => {
               id="process"
               placeholder="例）1 キャベツを千切りしておく 2 鶏肉を茹でる..."
               fontSize={{ base: 'sm', md: 'md' }}
-              value={state.process}
+              // value={state?.process}
               {...register('process', { required: true })}
             />
           </Stack>
@@ -221,29 +223,33 @@ const RecipeEdit = memo(() => {
               maxW="100px"
               mr="2rem"
               id="time_required"
-              value={state.time_required}
-              {...register('time_required', { required: true })}
-            >
-              <NumberInputField />
-              <NumberInputStepper>
-                <NumberIncrementStepper />
-                <NumberDecrementStepper />
-              </NumberInputStepper>
-            </NumberInput>
-            <Slider
-              flex="1"
-              focusThumbOnChange={false}
-              value={state.time_required}
+              // value={state.time_required}
               {...register('time_required', { required: true })}
               // onChange={handleChange}
             >
+              <NumberInputField />
+              {/* id="time_required" {...register('time_required', { required: true })} /> */}
+              {/* 上下ボタン */}
+              {/* <NumberInputStepper>
+                <NumberIncrementStepper />
+                <NumberDecrementStepper />
+              </NumberInputStepper> */}
+            </NumberInput>
+            {/* <Slider>
+              <SliderThumb
+                flex="1"
+                focusThumbOnChange={false}
+                // value={state.time_required}
+                // {...register('time_required', { required: true })}
+                onChange={handleChange}
+              />
               <SliderTrack>
                 <SliderFilledTrack />
               </SliderTrack>
               <SliderThumb fontSize="sm" boxSize="32px">
-                {state.time_required}
+                {time_required}
               </SliderThumb>
-            </Slider>
+            </Slider> */}
           </Flex>
           <Center>
             <Button mt={4} colorScheme="teal" width="75%" isLoading={loading} type="submit">
