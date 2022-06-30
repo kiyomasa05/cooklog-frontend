@@ -179,8 +179,7 @@ export default function Posts() {
                 <NumberDecrementStepper />
               </NumberInputStepper>
             </NumberInput>
-            <Slider>
-              <SliderThumb flex="1" focusThumbOnChange={false} value={time_required} onChange={handleChange} />
+            <Slider flex="1" focusThumbOnChange={false} value={time_required} onChange={handleChange}>
               <SliderTrack>
                 <SliderFilledTrack />
               </SliderTrack>

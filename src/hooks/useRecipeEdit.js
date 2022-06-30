@@ -11,16 +11,16 @@ const useRecipeEdit = () => {
   const { showMessage } = useMessage();
   const [loading, setLoading] = useState(false);
 
-  const recipeEdit = useCallback((data, loginUserId, image) => {
+  const recipeEdit = useCallback((recipeId, data, loginUserId, image, time_required) => {
     setLoading(true);
     axios
       .patch(
-        recipeEditURL(data.id),
+        recipeEditURL(recipeId),
         {
           recipe: {
             user_id: loginUserId,
             title: data.title,
-            time_required: data.time_required,
+            time_required,
             food: data.food,
             process: data.process,
             image: {
@@ -52,16 +52,16 @@ const useRecipeEdit = () => {
       });
   }, []);
 
-  const recipeEditNoImage = useCallback((data, loginUserId) => {
+  const recipeEditNoImage = useCallback((recipeId, data, loginUserId, time_required) => {
     setLoading(true);
     axios
       .patch(
-        recipeEditURL(data.id),
+        recipeEditURL(recipeId),
         {
           recipe: {
             user_id: loginUserId,
             title: data.title,
-            time_required: data.time_required,
+            time_required,
             food: data.food,
             process: data.process,
           },
