@@ -3,12 +3,10 @@ import { Button } from '@chakra-ui/react';
 import { EditIcon } from '@chakra-ui/icons';
 
 import { useHistory } from 'react-router-dom';
-// import useGetClickedRecipe from '../../hooks/useGetClickedRecipe';
 
 // editのonoffのみ役割
 const RecipeEditBtn = memo((props) => {
   const { recipes, children } = props;
-  // const { GetClickedRecipe, EditRecipe, loading } = useGetClickedRecipe;
   const history = useHistory();
 
   const recipeId = recipes?.id;
@@ -21,11 +19,6 @@ const RecipeEditBtn = memo((props) => {
       }),
     [history, recipeId, recipes]
   );
-  // const RecipeId = recipes.id;
-  // const onClickRecipeEdit = () => {
-  //   GetClickedRecipe(RecipeId);
-  // };
-  // const onClickRecipeEdit = useCallback(() => history.push(`/users/${id}/edit`), [history]);
 
   return (
     <Button
@@ -33,7 +26,6 @@ const RecipeEditBtn = memo((props) => {
       colorScheme="gray"
       color="black"
       mr={3}
-      // loading={loading}
       onClick={onClickRecipeEdit}
       recipe={recipes}
     >

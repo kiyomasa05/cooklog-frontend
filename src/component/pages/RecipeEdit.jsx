@@ -26,27 +26,17 @@ import {
   FormHelperText,
 } from '@chakra-ui/react';
 import { useLocation } from 'react-router-dom';
-// import axios from 'axios';
 import { useForm } from 'react-hook-form';
 
 // hooks
 import useLoginUser from '../../hooks/useLoginUser';
-// import useMessage from '../../hooks/useMessege';
 import useAuthCheck from '../../hooks/useAuthCheck';
-
-// url
-// import { recipeEditURL } from '../../urls/index';
 import useRecipeEdit from '../../hooks/useRecipeEdit';
 
 const RecipeEdit = memo(() => {
-  // const { recipe } = props;
   const { recipeEdit, recipeEditNoImage, loading } = useRecipeEdit();
-
   const { state } = useLocation();
   const { loginUser } = useLoginUser();
-  // const history = useHistory();
-  // const { showMessage } = useMessage();
-  // const [loading, setLoading] = useState(false);
   const { CheckAuth } = useAuthCheck();
 
   const {
@@ -55,12 +45,7 @@ const RecipeEdit = memo(() => {
     setValue,
     formState: { errors },
   } = useForm({});
-  // eslint-disable-next-line no-console
-  // console.log(props.food);
-  // api送信state
-  // const [title, setTitle] = useState(state.title);
-  // const [food, setFood] = useState(state.food);
-  // const [process, setProcess] = useState(state.process);
+
   const [time_required, setTime_required] = useState(state.time_required);
 
   const [image, setImage] = useState({});
@@ -87,7 +72,6 @@ const RecipeEdit = memo(() => {
     setValue('title', state.title);
     setValue('food', state.food);
     setValue('process', state.process);
-    // setValue('time_required', state.time_required);
   }, []);
 
   const recipeId = state.id;
@@ -98,51 +82,7 @@ const RecipeEdit = memo(() => {
       recipeEditNoImage(recipeId, data, loginUser.id, time_required);
     }
   };
-  // const onSubmit = (data) => {
-  //   recipeEdit(data, loginUser.id, image);
-  // };
-  // yu-za ID送る
 
-  // const onSubmit = () => {
-  //   setLoading(true);
-  //   axios
-  //     .patch(
-  //       recipeEditURL(state.id),
-  //       {
-  //         recipe: {
-  //           user_id: loginUser.user.id,
-  //           title,
-  //           time_required,
-  //           food,
-  //           process,
-  //           image: {
-  //             data: image.data,
-  //             name: image.name,
-  //           },
-  //         },
-  //       },
-  //       { withCredentials: true }
-  //     )
-  //     .then((response) => {
-  //       if (response.data.status === 'updated') {
-  //         showMessage({ title: '編集に成功しました', status: 'success' });
-  //         setLoading(false);
-  //         history.push('/index');
-  //       } else if (response.data.status === 422) {
-  //         showMessage({ title: `${response.data.errors}`, status: 'error' });
-  //         setLoading(false);
-  //       }
-  //     })
-  //     .catch((e) => {
-  //       showMessage({ title: '編集できませんでした', status: 'error' });
-  //       setLoading(false);
-  //       // eslint-disable-next-line no-console
-  //       console.log(e);
-  //     })
-  //     .finally(() => {
-  //       setLoading(false);
-  //     });
-  // };
   // eslint-disable-next-line no-shadow
   const handleChange = (time_required) => setTime_required(time_required);
 
@@ -162,7 +102,6 @@ const RecipeEdit = memo(() => {
                   fontSize={{ base: 'md', md: 'xl' }}
                   radii="1rem"
                   placeholder="タイトル(20文字まで)"
-                  // value={state.title}
                   {...register('title', { required: true, maxLength: 50 })}
                 />
                 {errors.title?.type === 'required' && (
@@ -181,7 +120,6 @@ const RecipeEdit = memo(() => {
                   // eslint-disable-next-line no-nested-ternary
                   !image.data ? (!state?.image_url ? 'gibbresh.png' : state?.image_url) : image.data
                 }
-                // {!image.data ? 'gibbresh.png' : image.data}
                 fallbackSrc="https://via.placeholder.com/250"
                 boxSize={{ base: '250px', md: '400px' }}
                 textAlign="center"
@@ -205,7 +143,6 @@ const RecipeEdit = memo(() => {
                 id="food"
                 placeholder="例）鶏肉、キャベツ、砂糖、塩..."
                 fontSize={{ base: 'sm', md: 'md' }}
-                // value={state.food}
                 {...register('food', { required: true })}
               />
               {errors.food?.type === 'required' && (
@@ -222,7 +159,6 @@ const RecipeEdit = memo(() => {
                 id="process"
                 placeholder="例）1 キャベツを千切りしておく 2 鶏肉を茹でる..."
                 fontSize={{ base: 'sm', md: 'md' }}
-                // value={state?.process}
                 {...register('process', { required: true })}
               />
               {errors.process?.type === 'required' && (
@@ -235,45 +171,20 @@ const RecipeEdit = memo(() => {
               所要時間
             </FormLabel>
             <Flex>
-              <NumberInput
-                maxW="100px"
-                mr="2rem"
-                id="time_required"
-                value={time_required}
-                // {...register('time_required', { required: true })}
-                onChange={handleChange}
-              >
+              <NumberInput maxW="100px" mr="2rem" id="time_required" value={time_required} onChange={handleChange}>
                 <NumberInputField />
-                {/* id="time_required" {...register('time_required', { required: true })} /> */}
                 {/* 上下ボタン */}
                 <NumberInputStepper>
                   <NumberIncrementStepper />
                   <NumberDecrementStepper />
                 </NumberInputStepper>
               </NumberInput>
-              {/* <Slider>
-              <SliderThumb
-                flex="1"
-                focusThumbOnChange={false}
-                value={time_required}
-                children={value}
-                // value={state.time_required}
-                // {...register('time_required', { required: true })}
-                onChange={handleChange}
-              />
-              <SliderTrack>
-                <SliderFilledTrack />
-              </SliderTrack>
-              <SliderThumb fontSize="sm" boxSize="32px">
-                {time_required}
-              </SliderThumb> */}
               <Slider flex="1" focusThumbOnChange={false} value={time_required} onChange={handleChange}>
                 <SliderTrack>
                   <SliderFilledTrack />
                 </SliderTrack>
                 <SliderThumb fontSize="sm" boxSize="32px" children={time_required} />
               </Slider>
-              {/* </Slider> */}
             </Flex>
             <Center>
               <Button mt={4} colorScheme="teal" width="75%" isLoading={loading} type="submit">
